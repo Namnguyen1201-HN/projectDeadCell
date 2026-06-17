@@ -18,6 +18,9 @@ public class Player : MonoBehaviour
     private bool isFacingRight = true;
     private bool isGrounded;
 
+    [Header("Animation")]
+    public Animator anim;
+
     private void Update()
     {
         // 1. Kiểm tra chạm đất
@@ -39,6 +42,9 @@ public class Player : MonoBehaviour
 
         // 4. Lật hình ảnh nhân vật
         Flip();
+
+        // 5. Xử lý animation
+        HandaleAnimations();
     }
 
     private void FixedUpdate()
@@ -59,6 +65,16 @@ public class Player : MonoBehaviour
             localScale.x *= -1f;
             transform.localScale = localScale;
         }
+    }
+
+    void HandaleAnimations()
+    {
+        anim.SetBool("isJumping", rb.velocity.y > .1f);
+        anim.SetFloat("yVelocity", rb.velocity.y);
+
+        anim.SetBool("isStand", Mathf.Abs(rb.velocity.x) < .1f && isGrounded);
+        anim.SetBool("isRunning", Mathf.Abs(rb.velocity.x) > .1f && isGrounded);
+        
     }
 
     // Vẽ vòng tròn Ground Check ra Scene để dễ dàng căn chỉnh
