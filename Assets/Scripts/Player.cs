@@ -1,89 +1,121 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    // FSM
+    public PlayerStateMachine StateMachine { get; private set; }
+    public PlayerIdleState IdleState { get; private set; }
+    public PlayerMoveState MoveState { get; private set; }
+    public PlayerJumpState JumpState { get; private set; }
+    public PlayerRollState RollState { get; private set; }
+
     [Header("Movement")]
     public Rigidbody2D rb;
-    public float moveSpeed;
-    public float jumpForce; // Lực nhảy
-    
+    public float moveSpeed = 7f;
+    public float jumpForce = 25f;
+
     [Header("Ground Check")]
-    public Transform groundCheck; // Vị trí dưới chân nhân vật để kiểm tra chạm đất
-    public float groundCheckRadius; // Bán kính vòng tròn kiểm tra
-    public LayerMask groundLayer; // Layer của mặt đất
-    
-    private float horizontalInput;
-    private bool isFacingRight = true;
-    private bool isGrounded;
+    public Transform groundCheck;
+    public float groundCheckRadius = 0.2f;
+    public LayerMask groundLayer;
+
+    [Header("Ceiling Check")]
+    public Transform ceilingCheck; // Vị trí đỉnh đầu để kiểm tra trần nhà
+    public float ceilingCheckRadius = 0.2f;
 
     [Header("Animation")]
     public Animator anim;
 
+    [Header("Roll Setting")]
+    public float rollDuration = 0.6f;
+    public float rollSpeed = 12f;
+    public float rollStopDuration = 0.15f; 
+
+    [Header("Collider Setting")]
+    public CapsuleCollider2D coll;
+    public Vector2 rollColliderSize = new Vector2(1.57f, 1f);
+    public Vector2 rollColliderOffset = new Vector2(0.51f, -0.6f);
+    
+    public Vector2 normalColliderSize { get; private set; }
+    public Vector2 normalColliderOffset { get; private set; }
+
+    public float horizontalInput { get; private set; }
+    public bool isFacingRight { get; private set; } = true;
+    public bool isGrounded { get; private set; }
+    public bool isCeilingHit { get; private set; }
+
+    private void Awake()
+    {
+        StateMachine = new PlayerStateMachine();
+        
+        // Khởi tạo các trạng thái và truyền tên bool của Animation
+        IdleState = new PlayerIdleState(this, StateMachine, "isStand");
+        MoveState = new PlayerMoveState(this, StateMachine, "isRunning");
+        JumpState = new PlayerJumpState(this, StateMachine, "isJumping");
+        RollState = new PlayerRollState(this, StateMachine, "isRolling");
+    }
+
+    private void Start()
+    {
+        if (coll != null)
+        {
+            normalColliderSize = coll.size;
+            normalColliderOffset = coll.offset;
+        }
+
+        // Bắt đầu FSM ở trạng thái đứng im
+        StateMachine.Initialize(IdleState);
+    }
+
     private void Update()
     {
-        // 1. Kiểm tra chạm đất
-        // Phải đảm bảo groundCheck đã được gán để không bị lỗi
-        if (groundCheck != null)
-        {
-            isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
-        }
-
-        // 2. Lấy input di chuyển
+        // Thu thập input và cờ trạng thái trước để các State dùng chung
         horizontalInput = Input.GetAxisRaw("Horizontal");
+        
+        if (groundCheck != null)
+            isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
-        // 3. Xử lý nhảy (Nút Space hoặc nút Jump mặc định)
-        // Chỉ nhảy khi vừa nhấn nút và đang ở trên mặt đất
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (ceilingCheck != null)
+            isCeilingHit = Physics2D.OverlapCircle(ceilingCheck.position, ceilingCheckRadius, groundLayer);
+
+        // Gọi logic của trạng thái hiện tại
+        StateMachine.CurrentState.Update();
+
+        // Xử lý hướng mặt độc lập (không cho phép lật mặt khi đang lăn)
+        if (StateMachine.CurrentState != RollState)
         {
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            Flip();
         }
-
-        // 4. Lật hình ảnh nhân vật
-        Flip();
-
-        // 5. Xử lý animation
-        HandaleAnimations();
     }
 
     private void FixedUpdate()
     {
-        // Thiết lập vận tốc mới cho Rigidbody2D, giữ nguyên vận tốc trục Y
-        rb.velocity = new Vector2(horizontalInput * moveSpeed, rb.velocity.y);
+        StateMachine.CurrentState.FixedUpdate();
     }
 
-    private void Flip()
+    public void Flip()
     {
-        // Nếu nhân vật đang quay sang phải nhưng di chuyển sang trái, hoặc ngược lại
         if (isFacingRight && horizontalInput < 0f || !isFacingRight && horizontalInput > 0f)
         {
-            isFacingRight = !isFacingRight; // Đổi trạng thái hướng mặt
-            
-            // Đảo ngược trục x của localScale
+            isFacingRight = !isFacingRight;
             Vector3 localScale = transform.localScale;
             localScale.x *= -1f;
             transform.localScale = localScale;
         }
     }
 
-    void HandaleAnimations()
-    {
-        anim.SetBool("isJumping", rb.velocity.y > .1f);
-        anim.SetFloat("yVelocity", rb.velocity.y);
-
-        anim.SetBool("isStand", Mathf.Abs(rb.velocity.x) < .1f && isGrounded);
-        anim.SetBool("isRunning", Mathf.Abs(rb.velocity.x) > .1f && isGrounded);
-        
-    }
-
-    // Vẽ vòng tròn Ground Check ra Scene để dễ dàng căn chỉnh
     private void OnDrawGizmosSelected()
     {
         if (groundCheck != null)
         {
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
+        }
+
+        if (ceilingCheck != null)
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(ceilingCheck.position, ceilingCheckRadius);
         }
     }
 }
