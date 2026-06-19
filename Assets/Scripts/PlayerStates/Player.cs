@@ -8,33 +8,38 @@ public class Player : MonoBehaviour
     public PlayerMoveState MoveState { get; private set; }
     public PlayerJumpState JumpState { get; private set; }
     public PlayerRollState RollState { get; private set; }
+    public PlayerAttackState AttackState { get; private set; }
 
     [Header("Movement")]
     public Rigidbody2D rb;
-    public float moveSpeed = 7f;
-    public float jumpForce = 25f;
+    public float moveSpeed;
+    public float jumpForce;
 
     [Header("Ground Check")]
     public Transform groundCheck;
-    public float groundCheckRadius = 0.2f;
+    public float groundCheckRadius;
     public LayerMask groundLayer;
 
     [Header("Ceiling Check")]
-    public Transform ceilingCheck; // Vị trí đỉnh đầu để kiểm tra trần nhà
-    public float ceilingCheckRadius = 0.2f;
+    public Transform ceilingCheck; 
+    public float ceilingCheckRadius;
+
+    [Header("Combat")]
+    public Combat combat;
+    public bool isAttackFinished;
 
     [Header("Animation")]
     public Animator anim;
 
     [Header("Roll Setting")]
-    public float rollDuration = 0.6f;
-    public float rollSpeed = 12f;
-    public float rollStopDuration = 0.15f; 
+    public float rollDuration;
+    public float rollSpeed;
+    public float rollStopDuration; 
 
     [Header("Collider Setting")]
     public CapsuleCollider2D coll;
-    public Vector2 rollColliderSize = new Vector2(1.57f, 1f);
-    public Vector2 rollColliderOffset = new Vector2(0.51f, -0.6f);
+    public Vector2 rollColliderSize;
+    public Vector2 rollColliderOffset;
     
     public Vector2 normalColliderSize { get; private set; }
     public Vector2 normalColliderOffset { get; private set; }
@@ -53,6 +58,7 @@ public class Player : MonoBehaviour
         MoveState = new PlayerMoveState(this, StateMachine, "isRunning");
         JumpState = new PlayerJumpState(this, StateMachine, "isJumping");
         RollState = new PlayerRollState(this, StateMachine, "isRolling");
+        AttackState = new PlayerAttackState(this, StateMachine, "isAttacking");
     }
 
     private void Start()
@@ -81,7 +87,6 @@ public class Player : MonoBehaviour
         // Gọi logic của trạng thái hiện tại
         StateMachine.CurrentState.Update();
 
-        // Xử lý hướng mặt độc lập (không cho phép lật mặt khi đang lăn)
         if (StateMachine.CurrentState != RollState)
         {
             Flip();
@@ -102,6 +107,17 @@ public class Player : MonoBehaviour
             localScale.x *= -1f;
             transform.localScale = localScale;
         }
+    }
+
+    public bool CanAttack()
+    {
+        if (combat == null) return false;
+        return Time.time >= combat.nextAttackTime;
+    }
+
+    public void AttackAnimationFinished()
+    {
+        isAttackFinished = true;
     }
 
     private void OnDrawGizmosSelected()

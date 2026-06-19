@@ -17,6 +17,13 @@ public class PlayerIdleState : PlayerState
     {
         base.Update();
 
+        // Kiểm tra bấm chuột trái và thời gian hồi chiêu
+        if (Input.GetMouseButtonDown(0) && player.CanAttack())
+        {
+            stateMachine.ChangeState(player.AttackState);
+            return;
+        }
+
         if (Input.GetButtonDown("Jump") && player.isGrounded)
         {
             stateMachine.ChangeState(player.JumpState);
