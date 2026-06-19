@@ -13,6 +13,9 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float torque = 5;
     [SerializeField] private float lifeTime = 2f;
 
+    [Header("Drop Item")]
+    public GameObject keyPrefab;
+
     private void OnEnable(){
         health.onDamaged += HandleDamage;     
         health.onDeath += HandleDeath;
@@ -28,6 +31,9 @@ public class Enemy : MonoBehaviour
     }   
 
     private void HandleDeath(){
+        if (keyPrefab != null) {
+            Instantiate(keyPrefab, transform.position, Quaternion.identity);
+        }
         
         foreach (GameObject prefab in deathParts) {
             Quaternion rotation = Quaternion.Euler(0,0,Random.Range(0.5f,1)).normalized;

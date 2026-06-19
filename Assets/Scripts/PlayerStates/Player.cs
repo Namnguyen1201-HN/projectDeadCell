@@ -44,6 +44,11 @@ public class Player : MonoBehaviour
     public Vector2 normalColliderSize { get; private set; }
     public Vector2 normalColliderOffset { get; private set; }
 
+    [Header("Abilities & Items")]
+    public int keyCount = 0;
+    public bool hasDoubleJump = false;
+    public int jumpsRemaining = 1;
+
     public float horizontalInput { get; private set; }
     public bool isFacingRight { get; private set; } = true;
     public bool isGrounded { get; private set; }

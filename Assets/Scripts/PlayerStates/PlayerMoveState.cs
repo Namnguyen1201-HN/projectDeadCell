@@ -9,6 +9,7 @@ public class PlayerMoveState : PlayerState
     public override void Enter()
     {
         base.Enter();
+        player.jumpsRemaining = player.hasDoubleJump ? 2 : 1;
     }
 
     public override void Update()

@@ -8,7 +8,7 @@ public class PlayerAttackState : PlayerState
     {
     }
 
-    private float stateTimer;
+
 
     public override void Enter()
     {

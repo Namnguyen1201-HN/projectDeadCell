@@ -11,6 +11,7 @@ public class PlayerIdleState : PlayerState
         base.Enter();
         // Khi đứng im, ép vận tốc X về 0 để không bị trôi
         player.rb.velocity = new Vector2(0, player.rb.velocity.y);
+        player.jumpsRemaining = player.hasDoubleJump ? 2 : 1;
     }
 
     public override void Update()

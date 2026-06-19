@@ -9,6 +9,7 @@ public class PlayerJumpState : PlayerState
     public override void Enter()
     {
         base.Enter();
+        player.jumpsRemaining--;
         player.rb.velocity = new Vector2(player.rb.velocity.x, player.jumpForce);
     }
 
@@ -18,6 +19,13 @@ public class PlayerJumpState : PlayerState
 
         // Cập nhật giá trị yVelocity cho Animator
         player.anim.SetFloat("yVelocity", player.rb.velocity.y);
+
+        // Double Jump
+        if (Input.GetButtonDown("Jump") && player.hasDoubleJump && player.jumpsRemaining > 0)
+        {
+            player.jumpsRemaining--;
+            player.rb.velocity = new Vector2(player.rb.velocity.x, player.jumpForce);
+        }
 
         // Chạm đất
         if (player.rb.velocity.y <= 0.1f && player.isGrounded)
