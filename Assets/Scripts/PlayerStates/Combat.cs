@@ -14,6 +14,7 @@ public class Combat : MonoBehaviour
     public float attackCooldown;
     public float nextAttackTime;
 
+    public Animator hitFX;
 
     public void AttackAnimationFinished()
     {
@@ -42,6 +43,8 @@ public class Combat : MonoBehaviour
         foreach (Collider2D enemy in hitEnemies)
         {
             Debug.Log("-> Đã chạm vào Collider của: " + enemy.name);
+
+            hitFX.Play("HitFX");
 
             // Tìm component Health và gọi hàm trừ máu
             Health enemyHealth = enemy.GetComponent<Health>();
