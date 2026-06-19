@@ -1,7 +1,10 @@
 using UnityEngine;
+using System;
 
 public class Player : MonoBehaviour
 {
+    public event Action<string> onSkillUnlocked;
+
     // FSM
     public PlayerStateMachine StateMachine { get; private set; }
     public PlayerIdleState IdleState { get; private set; }
@@ -123,6 +126,17 @@ public class Player : MonoBehaviour
     public void AttackAnimationFinished()
     {
         isAttackFinished = true;
+    }
+
+    public void UnlockSkill(string skillName)
+    {
+        if (skillName == "DoubleJump")
+        {
+            hasDoubleJump = true;
+        }
+        // Thêm các logic unlock skill khác ở đây sau này nếu cần
+        
+        onSkillUnlocked?.Invoke(skillName);
     }
 
     private void OnDrawGizmosSelected()

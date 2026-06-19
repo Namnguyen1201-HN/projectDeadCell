@@ -36,7 +36,7 @@ public class Chest : MonoBehaviour
                 if (playerInstance.keyCount > 0)
                 {
                     playerInstance.keyCount--;
-                    playerInstance.hasDoubleJump = true;
+                    playerInstance.UnlockSkill("DoubleJump");
                     isOpened = true;
                     Debug.Log("Chest opened! Double jump acquired.");
                     

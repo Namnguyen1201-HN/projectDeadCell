@@ -6,6 +6,7 @@ public class Health : MonoBehaviour
 {
     public event Action onDamaged;
     public event Action onDeath; 
+    public event Action<int, int> onHealthChanged;
 
     public int health;
     public int maxHealth;
@@ -13,6 +14,7 @@ public class Health : MonoBehaviour
     private void Start()
     {
         health = maxHealth;
+        onHealthChanged?.Invoke(health, maxHealth);
     }
 
 
@@ -32,8 +34,7 @@ public class Health : MonoBehaviour
             onDamaged?.Invoke();
         }
         
-
-        
+        onHealthChanged?.Invoke(health, maxHealth);
     }
 
 }
