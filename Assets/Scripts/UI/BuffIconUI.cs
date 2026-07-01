@@ -29,6 +29,10 @@ public class BuffIconUI : MonoBehaviour
     public void SetUnlocked(bool unlocked)
     {
         isUnlocked = unlocked;
+        
+        // Hiển thị GameObject nếu được unlock, ẩn đi nếu chưa có
+        gameObject.SetActive(isUnlocked);
+
         if (iconImage != null)
         {
             iconImage.color = isUnlocked ? unlockedColor : lockedColor;

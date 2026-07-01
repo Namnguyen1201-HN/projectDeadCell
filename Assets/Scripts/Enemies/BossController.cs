@@ -179,6 +179,30 @@ public class BossController : MonoBehaviour
         if (isDead) return;
         isDead = true;
         rb.velocity = Vector2.zero;
+
+        // Ẩn UI thanh máu Boss
+        if (UIManager.Instance != null)
+        {
+            UIManager.Instance.HideBossHealth();
+        }
+
+        // Hồi đầy máu cho người chơi
+        if (playerHealth != null)
+        {
+            playerHealth.changeHealth(playerHealth.maxHealth); // Sẽ tự động bị giới hạn ở maxHealth trong script Health
+            Debug.Log("Player được hồi đầy máu sau khi đánh bại Boss!");
+        }
+
+        // Tăng sát thương cho người chơi
+        if (player != null)
+        {
+            Player p = player.GetComponent<Player>();
+            if (p != null)
+            {
+                p.UnlockSkill("Streng");
+            }
+        }
+
         StartCoroutine(DeathRoutine());
     }
 

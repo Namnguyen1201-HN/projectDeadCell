@@ -4,6 +4,19 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    public static UIManager Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     [Header("Player References")]
     public Player player;
     public Health playerHealth;
@@ -13,6 +26,11 @@ public class UIManager : MonoBehaviour
 
     [Header("Health Bar Settings")]
     public Slider healthSlider;
+
+    [Header("Boss Health Settings")]
+    public GameObject bossHealthPanel;
+    public Slider bossHealthSlider;
+    private Health currentBossHealth;
 
     [Header("Buffs/Skills Settings")]
     // Danh sách tất cả các UI của Icon buff mà mình kéo vào từ Inspector
@@ -53,6 +71,12 @@ public class UIManager : MonoBehaviour
         {
             UpdateHealthBar(playerHealth.health, playerHealth.maxHealth);
         }
+
+        // Ẩn thanh máu Boss khi mới bắt đầu game
+        if (bossHealthPanel != null)
+        {
+            bossHealthPanel.SetActive(false);
+        }
     }
 
     // Hàm này được gọi tự động khi sự kiện onHealthChanged phát ra
@@ -75,6 +99,38 @@ public class UIManager : MonoBehaviour
             {
                 buffIcon.SetUnlocked(true);
             }
+        }
+    }
+
+    // -- BOSS HEALTH UI --
+    public void ShowBossHealth(Health bossHealth)
+    {
+        if (bossHealth == null) return;
+        
+        currentBossHealth = bossHealth;
+        currentBossHealth.onHealthChanged += UpdateBossHealthBar;
+        
+        if (bossHealthPanel != null) bossHealthPanel.SetActive(true);
+        UpdateBossHealthBar(currentBossHealth.health, currentBossHealth.maxHealth);
+    }
+
+    public void HideBossHealth()
+    {
+        if (currentBossHealth != null)
+        {
+            currentBossHealth.onHealthChanged -= UpdateBossHealthBar;
+            currentBossHealth = null;
+        }
+        
+        if (bossHealthPanel != null) bossHealthPanel.SetActive(false);
+    }
+
+    private void UpdateBossHealthBar(int currentHealth, int maxHealth)
+    {
+        if (bossHealthSlider != null)
+        {
+            bossHealthSlider.maxValue = maxHealth;
+            bossHealthSlider.value = currentHealth;
         }
     }
 }

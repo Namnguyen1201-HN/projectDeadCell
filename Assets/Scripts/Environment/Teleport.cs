@@ -7,6 +7,10 @@ public class Teleport : MonoBehaviour
     [Tooltip("Kéo thả một Empty GameObject ở vị trí đích (bên map mới) vào đây.")]
     public Transform destination;
 
+    [Header("Boss Settings (Tùy chọn)")]
+    [Tooltip("Kéo thả Boss ở phòng mới vào đây để hiển thị thanh máu khi teleport tới.")]
+    public Health targetBoss;
+
     [Header("Camera Bounds (Tùy chọn)")]
     [Tooltip("Kéo thả PolygonCollider2D chứa giới hạn của map mới vào đây.")]
     public Collider2D newCameraBounds;
@@ -37,6 +41,12 @@ public class Teleport : MonoBehaviour
                         confiner.InvalidateCache(); 
                     }
                 }
+            }
+
+            // 3. Hiển thị UI máu Boss nếu có Boss ở khu vực này
+            if (targetBoss != null && UIManager.Instance != null)
+            {
+                UIManager.Instance.ShowBossHealth(targetBoss);
             }
         }
     }
