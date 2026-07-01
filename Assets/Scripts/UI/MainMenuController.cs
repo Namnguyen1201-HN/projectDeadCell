@@ -8,25 +8,29 @@ public class MainMenuController : MonoBehaviour
     public string mainGameSceneName = "SampleScene"; // Đổi tên này thành tên Scene game thực tế của bạn
 
     [Header("UI Panels")]
+    public GameObject mainMenuPanel;
     public GameObject storyPanel;
     public GameObject tutorialPanel;
 
     private void Start()
     {
-        // Đảm bảo các panel bị ẩn khi mới mở menu
+        // Đảm bảo các panel phụ bị ẩn khi mới mở menu, và hiện menu chính
         if (storyPanel != null) storyPanel.SetActive(false);
         if (tutorialPanel != null) tutorialPanel.SetActive(false);
+        if (mainMenuPanel != null) mainMenuPanel.SetActive(true);
     }
 
     // 1. Cốt truyện
     public void ShowStory()
     {
         if (storyPanel != null) storyPanel.SetActive(true);
+        if (mainMenuPanel != null) mainMenuPanel.SetActive(false);
     }
 
     public void HideStory()
     {
         if (storyPanel != null) storyPanel.SetActive(false);
+        if (mainMenuPanel != null) mainMenuPanel.SetActive(true);
     }
 
     // 2. Bắt đầu chơi mới
@@ -50,11 +54,13 @@ public class MainMenuController : MonoBehaviour
     public void ShowTutorial()
     {
         if (tutorialPanel != null) tutorialPanel.SetActive(true);
+        if (mainMenuPanel != null) mainMenuPanel.SetActive(false);
     }
 
     public void HideTutorial()
     {
         if (tutorialPanel != null) tutorialPanel.SetActive(false);
+        if (mainMenuPanel != null) mainMenuPanel.SetActive(true);
     }
 
     // 5. Thoát game

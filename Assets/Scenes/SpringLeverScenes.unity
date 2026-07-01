@@ -52210,7 +52210,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName: DoubleJump
   iconImage: {fileID: 0}
-  lockedColor: {r: 0.39215687, g: 0.39215687, b: 0.39215687, a: 0.5882353}
+  lockedColor: {r: 1, g: 1, b: 1, a: 0.5882353}
   unlockedColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &1304534403
 MonoBehaviour:
@@ -53745,7 +53745,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5d25c7aa0f44fb141984e3270e40715d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 18cebb5d1caaa874da9c89d078365150, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
