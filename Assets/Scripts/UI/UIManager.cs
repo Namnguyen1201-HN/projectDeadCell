@@ -24,6 +24,13 @@ public class UIManager : MonoBehaviour
     [Header("Avatar Settings")]
     public Image avatarImage;
 
+    [Header("Death Menu Settings")]
+    public GameObject deathMenuPanel;
+
+    [Header("Pause Menu Settings")]
+    public GameObject pauseMenuPanel;
+    private bool isPaused = false;
+
     [Header("Health Bar Settings")]
     public Slider healthSlider;
 
@@ -42,6 +49,7 @@ public class UIManager : MonoBehaviour
         if (playerHealth != null)
         {
             playerHealth.onHealthChanged += UpdateHealthBar;
+            playerHealth.onDeath += ShowDeathMenu;
         }
 
         if (player != null)
@@ -56,6 +64,7 @@ public class UIManager : MonoBehaviour
         if (playerHealth != null)
         {
             playerHealth.onHealthChanged -= UpdateHealthBar;
+            playerHealth.onDeath -= ShowDeathMenu;
         }
 
         if (player != null)
@@ -76,6 +85,27 @@ public class UIManager : MonoBehaviour
         if (bossHealthPanel != null)
         {
             bossHealthPanel.SetActive(false);
+        }
+
+        // Ẩn Menu Chết khi mới bắt đầu game
+        if (deathMenuPanel != null)
+        {
+            deathMenuPanel.SetActive(false);
+        }
+
+        // Ẩn Menu Tạm dừng khi mới bắt đầu game
+        if (pauseMenuPanel != null)
+        {
+            pauseMenuPanel.SetActive(false);
+        }
+    }
+
+    private void Update()
+    {
+        // Nhấn ESC để bật/tắt tạm dừng
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            TogglePause();
         }
     }
 
@@ -133,4 +163,87 @@ public class UIManager : MonoBehaviour
             bossHealthSlider.value = currentHealth;
         }
     }
+
+    // -- DEATH MENU UI --
+    private void ShowDeathMenu()
+    {
+        if (deathMenuPanel != null)
+        {
+            deathMenuPanel.SetActive(true);
+        }
+    }
+
+    public void OnRestartLevelClicked()
+    {
+        // Tải lại Scene hiện tại
+        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void OnReviveClicked()
+    {
+        if (deathMenuPanel != null)
+        {
+            deathMenuPanel.SetActive(false);
+        }
+
+        if (player != null)
+        {
+            PlayerRespawn respawn = player.GetComponent<PlayerRespawn>();
+            if (respawn != null)
+            {
+                respawn.ReviveAtCheckpoint();
+            }
+        }
+    }
+
+    public void OnBackToMainMenuClicked()
+    {
+        // Tải scene MainMenu. Đảm bảo scene MainMenu đã được thêm vào Build Settings!
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+    }
+
+    // -- PAUSE MENU UI --
+    public void TogglePause()
+    {
+        isPaused = !isPaused;
+
+        // Dừng thời gian (0) hoặc chạy bình thường (1)
+        Time.timeScale = isPaused ? 0f : 1f;
+
+        if (pauseMenuPanel != null)
+        {
+            pauseMenuPanel.SetActive(isPaused);
+        }
+    }
+
+    public void OnResumeClicked()
+    {
+        if (isPaused)
+        {
+            TogglePause();
+        }
+    }
+
+    public void OnPauseReviveClicked()
+    {
+        // Trả lại thời gian trước khi thực hiện logic khác
+        if (isPaused) TogglePause();
+
+        if (player != null)
+        {
+            PlayerRespawn respawn = player.GetComponent<PlayerRespawn>();
+            if (respawn != null)
+            {
+                respawn.ReviveAtCheckpoint();
+            }
+        }
+    }
+
+    public void OnPauseMainMenuClicked()
+    {
+        // Quan trọng: Trả lại thời gian bình thường trước khi chuyển Scene
+        Time.timeScale = 1f;
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+    }
 }
+

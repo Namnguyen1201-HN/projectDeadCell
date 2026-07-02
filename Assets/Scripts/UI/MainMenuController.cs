@@ -36,17 +36,7 @@ public class MainMenuController : MonoBehaviour
     // 2. Bắt đầu chơi mới
     public void StartNewGame()
     {
-        // Có thể reset save data ở đây nếu bạn có hệ thống lưu trữ
         Debug.Log("Bắt đầu game mới! Đang load scene: " + mainGameSceneName);
-        SceneManager.LoadScene(mainGameSceneName);
-    }
-
-    // 3. Tiếp tục chơi
-    public void ContinueGame()
-    {
-        // TODO: Viết logic load save game ở đây (VD: Load vị trí, máu, skill, v.v...)
-        // Hiện tại tạm thời gọi load scene giống StartNewGame
-        Debug.Log("Tiếp tục chơi! Đang load save data...");
         SceneManager.LoadScene(mainGameSceneName);
     }
 
