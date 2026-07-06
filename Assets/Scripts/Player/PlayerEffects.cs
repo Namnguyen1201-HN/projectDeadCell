@@ -121,4 +121,25 @@ public class PlayerEffects : MonoBehaviour
         
         Debug.Log("Player đã chết!");
     }
+
+    public void Revive()
+    {
+        // 1. Reset lại Animator để chắc chắn thoát khỏi trạng thái chết
+        if (anim != null)
+        {
+            anim.SetBool("isDead", false);
+            anim.Rebind();
+            anim.Update(0f);
+        }
+
+        // 2. Bật lại script điều khiển và reset State Machine về Idle
+        if (playerMovement != null)
+        {
+            playerMovement.enabled = true;
+            if (playerMovement.StateMachine != null && playerMovement.IdleState != null)
+            {
+                playerMovement.StateMachine.ChangeState(playerMovement.IdleState);
+            }
+        }
+    }
 }

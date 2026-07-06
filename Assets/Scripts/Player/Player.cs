@@ -51,6 +51,7 @@ public class Player : MonoBehaviour
     public int keyCount = 0;
     public bool hasDoubleJump = false;
     public int jumpsRemaining = 1;
+    public int strengthBuffAmount = 10;
 
     public float horizontalInput { get; private set; }
     public bool isFacingRight { get; private set; } = true;
@@ -133,6 +134,14 @@ public class Player : MonoBehaviour
         if (skillName == "DoubleJump")
         {
             hasDoubleJump = true;
+        }
+        else if (skillName == "Streng")
+        {
+            if (combat != null)
+            {
+                combat.attackDamage += strengthBuffAmount;
+                Debug.Log("Đã Unlock Streng! Sát thương tăng lên thành: " + combat.attackDamage);
+            }
         }
         // Thêm các logic unlock skill khác ở đây sau này nếu cần
         
