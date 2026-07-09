@@ -38,7 +38,7 @@ namespace AutumnLevel
             isDashing = true;
             nextDashTime = Time.time + dashCooldown;
 
-            if (anim != null) anim.SetTrigger("isDashing");
+            if (HasAnimatorParameter("isDashing")) anim.SetTrigger("isDashing");
 
             Vector2 dashDir = (player.position - transform.position).normalized;
             rb.velocity = dashDir * dashSpeed;

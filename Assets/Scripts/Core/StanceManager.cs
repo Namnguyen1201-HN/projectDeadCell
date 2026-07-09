@@ -102,7 +102,7 @@ public class StanceManager : MonoBehaviour
     public bool TryApplyBurn(Health targetHealth)
     {
         if (currentStance != StanceType.Summer) return false;
-        if (Random.value > summerBurnChance) return false;
+        if (UnityEngine.Random.value > summerBurnChance) return false;
 
         StartCoroutine(BurnRoutine(targetHealth));
         return true;

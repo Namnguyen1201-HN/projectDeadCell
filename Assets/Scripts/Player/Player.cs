@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
     public LayerMask groundLayer;
 
     [Header("Ceiling Check")]
-    public Transform ceilingCheck; 
+    public Transform ceilingCheck;
     public float ceilingCheckRadius;
 
     [Header("Combat")]
@@ -37,13 +37,13 @@ public class Player : MonoBehaviour
     [Header("Roll Setting")]
     public float rollDuration;
     public float rollSpeed;
-    public float rollStopDuration; 
+    public float rollStopDuration;
 
     [Header("Collider Setting")]
     public CapsuleCollider2D coll;
     public Vector2 rollColliderSize;
     public Vector2 rollColliderOffset;
-    
+
     public Vector2 normalColliderSize { get; private set; }
     public Vector2 normalColliderOffset { get; private set; }
 
@@ -58,16 +58,32 @@ public class Player : MonoBehaviour
     public bool isGrounded { get; private set; }
     public bool isCeilingHit { get; private set; }
 
+    [Header("Core Systems")]
+    public StanceManager stanceManager;
+    public WeaponSystem weaponSystem;
+    public BuffReceiver buffReceiver;
+
     private void Awake()
     {
+        stanceManager = GetComponent<StanceManager>();
+        weaponSystem = GetComponent<WeaponSystem>();
+        buffReceiver = GetComponent<BuffReceiver>();
+
         StateMachine = new PlayerStateMachine();
-        
+
         // Khởi tạo các trạng thái và truyền tên bool của Animation
         IdleState = new PlayerIdleState(this, StateMachine, "isStand");
         MoveState = new PlayerMoveState(this, StateMachine, "isRunning");
         JumpState = new PlayerJumpState(this, StateMachine, "isJumping");
         RollState = new PlayerRollState(this, StateMachine, "isRolling");
         AttackState = new PlayerAttackState(this, StateMachine, "isAttacking");
+
+        // Thêm PhysicsMaterial2D không ma sát (Friction = 0) để tránh bị kẹt trên đầu quái hoặc dính tường
+        PhysicsMaterial2D noFriction = new PhysicsMaterial2D("NoFriction");
+        noFriction.friction = 0f;
+        noFriction.bounciness = 0f;
+        if (rb != null) rb.sharedMaterial = noFriction;
+        if (coll != null) coll.sharedMaterial = noFriction;
     }
 
     private void Start()
@@ -86,7 +102,7 @@ public class Player : MonoBehaviour
     {
         // Thu thập input và cờ trạng thái trước để các State dùng chung
         horizontalInput = Input.GetAxisRaw("Horizontal");
-        
+
         if (groundCheck != null)
             isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
@@ -144,7 +160,7 @@ public class Player : MonoBehaviour
             }
         }
         // Thêm các logic unlock skill khác ở đây sau này nếu cần
-        
+
         onSkillUnlocked?.Invoke(skillName);
     }
 

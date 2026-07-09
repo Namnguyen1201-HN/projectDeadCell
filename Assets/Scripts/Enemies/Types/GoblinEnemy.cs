@@ -14,8 +14,8 @@ public class GoblinEnemy : EnemyBase
         if (dist <= attackRange)
         {
             rb.velocity = new Vector2(0, rb.velocity.y);
-            if (anim != null) anim.SetBool("isRunning", false);
-            
+            if (anim != null && HasAnimatorParameter("isRunning")) anim.SetBool("isRunning", false);
+
             if (Time.time >= nextAttackTime)
             {
                 Attack();
@@ -24,16 +24,26 @@ public class GoblinEnemy : EnemyBase
         else if (dist <= aggroRange)
         {
             Vector2 dir = (player.position - transform.position).normalized;
-            rb.velocity = new Vector2(dir.x * currentSpeed, rb.velocity.y);
-            FacePlayer();
-            
-            if (anim != null) anim.SetBool("isRunning", true);
+            if (CanMoveForward(dir.x))
+            {
+                rb.velocity = new Vector2(dir.x * currentSpeed, rb.velocity.y);
+                FacePlayer();
+
+                if (anim != null && HasAnimatorParameter("isRunning")) anim.SetBool("isRunning", true);
+            }
+            else
+            {
+                // Stop moving if there is a ledge or wall, but still face player
+                rb.velocity = new Vector2(0, rb.velocity.y);
+                FacePlayer();
+                if (anim != null && HasAnimatorParameter("isRunning")) anim.SetBool("isRunning", false);
+            }
         }
         else
         {
             // Đứng im nếu ngoài tầm
             rb.velocity = new Vector2(0, rb.velocity.y);
-            if (anim != null) anim.SetBool("isRunning", false);
+            if (anim != null && HasAnimatorParameter("isRunning")) anim.SetBool("isRunning", false);
         }
     }
 }

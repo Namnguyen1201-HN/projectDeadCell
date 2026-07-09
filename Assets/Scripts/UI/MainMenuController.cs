@@ -5,18 +5,19 @@ public class MainMenuController : MonoBehaviour
 {
     [Header("Scene Settings")]
     [Tooltip("Tên Scene chính của game bạn muốn load khi bấm Bắt Đầu")]
-    public string mainGameSceneName = "SampleScene"; // Đổi tên này thành tên Scene game thực tế của bạn
+    public string mainGameSceneName = "SpringLeverScenes";
 
     [Header("UI Panels")]
     public GameObject mainMenuPanel;
     public GameObject storyPanel;
     public GameObject tutorialPanel;
+    public GameObject levelSelectPanel; // Panel chọn màn chơi
 
     private void Start()
     {
-        // Đảm bảo các panel phụ bị ẩn khi mới mở menu, và hiện menu chính
         if (storyPanel != null) storyPanel.SetActive(false);
         if (tutorialPanel != null) tutorialPanel.SetActive(false);
+        if (levelSelectPanel != null) levelSelectPanel.SetActive(false);
         if (mainMenuPanel != null) mainMenuPanel.SetActive(true);
     }
 
@@ -33,7 +34,32 @@ public class MainMenuController : MonoBehaviour
         if (mainMenuPanel != null) mainMenuPanel.SetActive(true);
     }
 
-    // 2. Bắt đầu chơi mới
+    // 2. Mở bảng chọn màn chơi
+    public void ShowLevelSelect()
+    {
+        if (levelSelectPanel != null) levelSelectPanel.SetActive(true);
+        if (mainMenuPanel != null) mainMenuPanel.SetActive(false);
+    }
+
+    public void HideLevelSelect()
+    {
+        if (levelSelectPanel != null) levelSelectPanel.SetActive(false);
+        if (mainMenuPanel != null) mainMenuPanel.SetActive(true);
+    }
+
+    // 3. Load màn Mùa Thu
+    public void LoadAutumnRuins()
+    {
+        SceneManager.LoadScene("AutumnRuins");
+    }
+
+    // 3. Load màn Mùa Xuân
+    public void LoadSpringScenes()
+    {
+        SceneManager.LoadScene("SpringLeverScenes");
+    }
+
+    // Bắt đầu chơi mới (load Spring mặc định)
     public void StartNewGame()
     {
         Debug.Log("Bắt đầu game mới! Đang load scene: " + mainGameSceneName);

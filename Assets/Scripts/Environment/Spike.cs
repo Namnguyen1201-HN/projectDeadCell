@@ -18,7 +18,7 @@ public class Spike : MonoBehaviour
             }
         }
         // Kiểm tra nếu quái vật rơi vào bẫy gai
-        else if (collision.GetComponent<EnemyController>() != null)
+        else if (collision.CompareTag("Enemy"))
         {
             Health enemyHealth = collision.GetComponent<Health>();
             if (enemyHealth != null)
