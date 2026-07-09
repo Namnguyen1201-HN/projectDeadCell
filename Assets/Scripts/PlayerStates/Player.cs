@@ -6,12 +6,12 @@ public class Player : MonoBehaviour
     public event Action<string> onSkillUnlocked;
 
     // FSM
-    public PlayerStateMachine StateMachine { get; private set; }
-    public PlayerIdleState IdleState { get; private set; }
-    public PlayerMoveState MoveState { get; private set; }
-    public PlayerJumpState JumpState { get; private set; }
-    public PlayerRollState RollState { get; private set; }
-    public PlayerAttackState AttackState { get; private set; }
+    public PlayerStateMachine StateMachine { get; protected set; }
+    public PlayerIdleState IdleState { get; protected set; }
+    public PlayerMoveState MoveState { get; protected set; }
+    public PlayerJumpState JumpState { get; protected set; }
+    public PlayerRollState RollState { get; protected set; }
+    public PlayerAttackState AttackState { get; protected set; }
 
     [Header("Movement")]
     public Rigidbody2D rb;
@@ -57,7 +57,7 @@ public class Player : MonoBehaviour
     public bool isGrounded { get; private set; }
     public bool isCeilingHit { get; private set; }
 
-    private void Awake()
+    protected virtual void Awake()
     {
         StateMachine = new PlayerStateMachine();
         
@@ -69,7 +69,7 @@ public class Player : MonoBehaviour
         AttackState = new PlayerAttackState(this, StateMachine, "isAttacking");
     }
 
-    private void Start()
+    protected virtual void Start()
     {
         if (coll != null)
         {
@@ -81,7 +81,7 @@ public class Player : MonoBehaviour
         StateMachine.Initialize(IdleState);
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         // Thu thập input và cờ trạng thái trước để các State dùng chung
         horizontalInput = Input.GetAxisRaw("Horizontal");
@@ -101,7 +101,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         StateMachine.CurrentState.FixedUpdate();
     }
@@ -139,7 +139,7 @@ public class Player : MonoBehaviour
         onSkillUnlocked?.Invoke(skillName);
     }
 
-    private void OnDrawGizmosSelected()
+    protected virtual void OnDrawGizmosSelected()
     {
         if (groundCheck != null)
         {

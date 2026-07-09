@@ -16,6 +16,11 @@ public class Combat : MonoBehaviour
 
     public Animator hitFX;
 
+    [Header("Ranged Attack Settings")]
+    public bool isRanged;
+    public GameObject projectilePrefab;
+    public float projectileSpeed = 15f;
+
     public void AttackAnimationFinished()
     {
         player.AttackAnimationFinished();
@@ -27,6 +32,37 @@ public class Combat : MonoBehaviour
         {
             Debug.LogError("LỖI: Bạn chưa kéo GameObject Attack Point vào ô tương ứng ở Player script!");
             return;
+        }
+
+        if (isRanged)
+        {
+            // Bắn cung (Ranged Attack)
+            if (projectilePrefab != null)
+            {
+                GameObject arrow = Instantiate(projectilePrefab, attackPoint.position, attackPoint.rotation);
+                
+                float direction = player.isFacingRight ? 1f : -1f;
+                
+                // Lật hình ảnh mũi tên cho đúng hướng bay
+                Vector3 scale = arrow.transform.localScale;
+                scale.x *= direction;
+                arrow.transform.localScale = scale;
+
+                // Cài đặt sát thương
+                Arrow arrowScript = arrow.GetComponent<Arrow>();
+                if (arrowScript != null)
+                {
+                    arrowScript.damage = attackDamage;
+                }
+
+                // Cấp lực đẩy (Velocity) cho mũi tên
+                Rigidbody2D rb = arrow.GetComponent<Rigidbody2D>();
+                if (rb != null)
+                {
+                    rb.velocity = new Vector2(direction * projectileSpeed, 0);
+                }
+            }
+            return; // Thoát ra không thực hiện chém cận chiến nữa
         }
 
         Debug.Log("2. Bắt đầu vung kiếm! Quét vùng đánh với bán kính " + attackRadius);
