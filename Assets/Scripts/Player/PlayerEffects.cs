@@ -53,8 +53,8 @@ public class PlayerEffects : MonoBehaviour
         // 1. Chớp đỏ nhân vật
         if (spriteRenderer != null)
         {
-            StopCoroutine(FlashHurtColor());
-            StartCoroutine(FlashHurtColor());
+            StopCoroutine("FlashHurtColor");
+            StartCoroutine("FlashHurtColor");
         }
 
         // 2. Chạy animation hurt (nếu có)

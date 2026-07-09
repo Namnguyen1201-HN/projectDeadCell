@@ -10,24 +10,21 @@ public class PlayerJumpState : PlayerState
     {
         base.Enter();
         player.jumpsRemaining--;
-        player.rb.velocity = new Vector2(player.rb.velocity.x, player.jumpForce);
+        Jump();
     }
 
     public override void Update()
     {
         base.Update();
 
-        // Cập nhật giá trị yVelocity cho Animator
-        player.anim.SetFloat("yVelocity", player.rb.velocity.y);
+        if (player.anim != null) player.anim.SetFloat("yVelocity", player.rb.velocity.y);
 
-        // Double Jump
         if (Input.GetButtonDown("Jump") && player.hasDoubleJump && player.jumpsRemaining > 0)
         {
             player.jumpsRemaining--;
-            player.rb.velocity = new Vector2(player.rb.velocity.x, player.jumpForce);
+            Jump();
         }
 
-        // Chạm đất
         if (player.rb.velocity.y <= 0.1f && player.isGrounded)
         {
             if (Mathf.Abs(player.horizontalInput) > 0.1f)
@@ -40,7 +37,20 @@ public class PlayerJumpState : PlayerState
     public override void FixedUpdate()
     {
         base.FixedUpdate();
-        // Cho phép di chuyển trên không
-        player.rb.velocity = new Vector2(player.horizontalInput * player.moveSpeed, player.rb.velocity.y);
+
+        float finalSpeed = player.moveSpeed;
+        if (player.stanceManager != null)
+            finalSpeed *= player.stanceManager.GetSpeedMultiplier();
+
+        player.rb.velocity = new Vector2(player.horizontalInput * finalSpeed, player.rb.velocity.y);
+    }
+
+    private void Jump()
+    {
+        float finalJumpForce = player.jumpForce;
+        if (player.stanceManager != null)
+            finalJumpForce *= player.stanceManager.GetJumpMultiplier();
+
+        player.rb.velocity = new Vector2(player.rb.velocity.x, finalJumpForce);
     }
 }

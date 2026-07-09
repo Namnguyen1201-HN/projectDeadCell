@@ -16,18 +16,18 @@ public class EnemyController : MonoBehaviour
     public float moveSpeed = 3f;
     public int attackDamage = 10;
     public float attackCooldown = 1.5f;
-    
+
     [Header("Stun Settings")]
     public float stunDuration = 0.8f;
-    
+
     [Header("Effects")]
     public SpriteRenderer spriteRenderer;
     public Color hurtColor = Color.red;
     public float hurtDuration = 0.2f;
     private Color originalColor;
-    
+
     [Header("DeathFX")]
-    [SerializeField] private GameObject[] deathParts; 
+    [SerializeField] private GameObject[] deathParts;
     [SerializeField] private float spawnForce = 5f;
     [SerializeField] private float torque = 5;
     [SerializeField] private float lifeTime = 2f;
@@ -45,14 +45,17 @@ public class EnemyController : MonoBehaviour
     public Animator anim;
     public Health health;
 
+    private Collider2D coll;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        
+        coll = GetComponent<Collider2D>();
+
         if (anim == null) anim = GetComponentInChildren<Animator>();
         if (health == null) health = GetComponent<Health>();
         if (spriteRenderer == null) spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        
+
         if (spriteRenderer != null) originalColor = spriteRenderer.color;
     }
 
@@ -84,6 +87,33 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    private bool CanMoveForward(float dirX)
+    {
+        if (coll == null) return true;
+
+        Vector2 origin = coll.bounds.center;
+        float xExtents = coll.bounds.extents.x;
+        float yExtents = coll.bounds.extents.y;
+        float checkDirection = dirX > 0 ? 1f : -1f;
+
+        // Front bottom edge
+        Vector2 frontEdge = new Vector2(origin.x + xExtents * checkDirection, origin.y - yExtents);
+        LayerMask groundMask = LayerMask.GetMask("Ground");
+
+        // 1. Check Ledge (is there ground below the front edge?)
+        RaycastHit2D groundHit = Physics2D.Raycast(frontEdge, Vector2.down, 1f, groundMask);
+        if (groundHit.collider == null)
+            return false; // Ledge ahead!
+
+        // 2. Check Wall (is there a wall in front?)
+        Vector2 centerFront = new Vector2(origin.x + xExtents * checkDirection, origin.y);
+        RaycastHit2D wallHit = Physics2D.Raycast(centerFront, new Vector2(checkDirection, 0), 0.2f, groundMask);
+        if (wallHit.collider != null && !wallHit.collider.isTrigger)
+            return false; // Wall ahead!
+
+        return true;
+    }
+
     private void Update()
     {
         if (health != null && health.health <= 0) return;
@@ -105,14 +135,30 @@ public class EnemyController : MonoBehaviour
         else if (distanceToPlayer <= aggroRange)
         {
             Vector2 direction = (player.position - transform.position).normalized;
-            rb.velocity = new Vector2(direction.x * moveSpeed, rb.velocity.y);
-            
-            if (direction.x > 0)
-                transform.rotation = Quaternion.Euler(0, 180, 0);
-            else if (direction.x < 0)
-                transform.rotation = Quaternion.Euler(0, 0, 0);
-            
-            if (anim != null) anim.SetBool("isRunning", true);
+
+            // Check if we can move in that direction without falling or hitting a wall
+            if (CanMoveForward(direction.x))
+            {
+                rb.velocity = new Vector2(direction.x * moveSpeed, rb.velocity.y);
+
+                if (direction.x > 0)
+                    transform.rotation = Quaternion.Euler(0, 180, 0);
+                else if (direction.x < 0)
+                    transform.rotation = Quaternion.Euler(0, 0, 0);
+
+                if (anim != null) anim.SetBool("isRunning", true);
+            }
+            else
+            {
+                // Stop at edge/wall, face the player but don't move forward
+                rb.velocity = new Vector2(0, rb.velocity.y);
+                if (direction.x > 0)
+                    transform.rotation = Quaternion.Euler(0, 180, 0);
+                else if (direction.x < 0)
+                    transform.rotation = Quaternion.Euler(0, 0, 0);
+
+                if (anim != null) anim.SetBool("isRunning", false);
+            }
         }
         else
         {
@@ -138,7 +184,7 @@ public class EnemyController : MonoBehaviour
             Attack();
         }
     }
-    
+
     private void OnTriggerStay2D(Collider2D collider)
     {
         if (health != null && health.health <= 0) return;
@@ -160,7 +206,7 @@ public class EnemyController : MonoBehaviour
             StopCoroutine("FlashHurtColor");
             StartCoroutine("FlashHurtColor");
         }
-        
+
         if (anim != null) anim.SetTrigger("isDamaged");
     }
 
@@ -193,15 +239,15 @@ public class EnemyController : MonoBehaviour
         if (keyPrefab != null) {
             Instantiate(keyPrefab, transform.position, Quaternion.identity);
         }
-        
+
         if (healItemPrefab != null && Random.value <= healItemDropChance) {
             Instantiate(healItemPrefab, transform.position, Quaternion.identity);
         }
-        
+
         foreach (GameObject prefab in deathParts) {
             Quaternion rotation = Quaternion.Euler(0,0,Random.Range(0.5f,1)).normalized;
             GameObject part = Instantiate(prefab,transform.position,rotation);
-            
+
             Rigidbody2D partRb = part.GetComponent<Rigidbody2D>();
             if (partRb != null) {
                 Vector2 randomDirection = new Vector2(Random.Range(-1f,1f), Random.Range(0f,1f)).normalized;
