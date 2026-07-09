@@ -1,11 +1,22 @@
 using UnityEngine;
 using Cinemachine;
 
+/// <summary>
+/// Dịch chuyển Player sang khu vực mới khi chạm vào trigger.
+/// FIXED v2:
+/// - Null-guard cho destination (tránh NullReferenceException crash)
+/// - Null-guard cho Rigidbody2D (reset velocity sau teleport)
+/// - Debug log hữu ích khi destination chưa gán
+/// </summary>
 public class Teleport : MonoBehaviour
 {
     [Header("Teleport Settings")]
-    [Tooltip("Kéo thả một Empty GameObject ở vị trí đích (bên map mới) vào đây.")]
+    [Tooltip("Kéo thả một Empty GameObject ở vị trí đích vào đây.")]
     public Transform destination;
+
+    [Header("Boss Settings (Tùy chọn)")]
+    [Tooltip("Kéo thả Boss ở phòng mới vào đây để hiển thị thanh máu khi teleport tới.")]
+    public Health targetBoss;
 
     [Header("Camera Bounds (Tùy chọn)")]
     [Tooltip("Kéo thả PolygonCollider2D chứa giới hạn của map mới vào đây.")]
@@ -13,31 +24,46 @@ public class Teleport : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Kiểm tra xem đối tượng chạm vào có phải là Player không
-        if (collision.CompareTag("Player"))
-        {
-            // 1. Dịch chuyển Player tới vị trí đích
-            collision.transform.position = destination.position;
+        if (!collision.CompareTag("Player")) return;
 
-            // 2. Cập nhật lại giới hạn Camera (nếu có dùng CinemachineConfiner2D)
-            if (newCameraBounds != null)
+        // ── Guard: destination chưa gán ──
+        if (destination == null)
+        {
+            Debug.LogWarning($"[Teleport] '{gameObject.name}' chưa gán Destination! " +
+                             "Hãy kéo SpawnPoint vào field 'Destination' trong Inspector.");
+            return;
+        }
+
+        // ── 1. Dịch chuyển Player ──
+        Rigidbody2D rb = collision.GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.velocity = Vector2.zero; // Reset velocity trước khi teleport tránh trượt
+            rb.position = destination.position;
+        }
+        collision.transform.position = destination.position;
+
+        // ── 2. Cập nhật Camera Bounds (Cinemachine Confiner2D) ──
+        if (newCameraBounds != null)
+        {
+            CinemachineVirtualCamera vcam = FindObjectOfType<CinemachineVirtualCamera>();
+            if (vcam != null)
             {
-                // Tìm Virtual Camera trong Scene
-                var vcam = FindObjectOfType<CinemachineVirtualCamera>();
-                if (vcam != null)
+                CinemachineConfiner2D confiner = vcam.GetComponent<CinemachineConfiner2D>();
+                if (confiner != null)
                 {
-                    // Lấy thành phần Confiner2D
-                    var confiner = vcam.GetComponent<CinemachineConfiner2D>();
-                    if (confiner != null)
-                    {
-                        // Đổi ranh giới sang map mới
-                        confiner.m_BoundingShape2D = newCameraBounds;
-                        
-                        // Xóa cache cũ để camera cập nhật ranh giới ngay lập tức
-                        confiner.InvalidateCache(); 
-                    }
+                    confiner.m_BoundingShape2D = newCameraBounds;
+                    confiner.InvalidateCache();
                 }
             }
         }
+
+        // ── 3. Hiển thị UI máu Boss ──
+        if (targetBoss != null && UIManager.Instance != null)
+        {
+            UIManager.Instance.ShowBossHealth(targetBoss);
+        }
+
+        Debug.Log($"[Teleport] Player teleported → {destination.name} @ {destination.position}");
     }
 }

@@ -45,4 +45,28 @@ public class PlayerRespawn : MonoBehaviour
             }
         }
     }
+
+    public void ReviveAtCheckpoint()
+    {
+        // 1. Hồi đầy máu
+        if (playerHealth != null)
+        {
+            // Truyền lượng máu tối đa vào hàm changeHealth, logic trong Health.cs sẽ giữ máu không vượt quá maxHealth
+            playerHealth.changeHealth(playerHealth.maxHealth); 
+        }
+
+        // 2. Đưa nhân vật về vị trí checkpoint
+        transform.position = currentRespawnPosition;
+        if (rb != null)
+        {
+            rb.velocity = Vector2.zero;
+        }
+
+        // 3. Gọi PlayerEffects để tắt animation chết và cho phép di chuyển
+        PlayerEffects effects = GetComponent<PlayerEffects>();
+        if (effects != null)
+        {
+            effects.Revive();
+        }
+    }
 }

@@ -83,7 +83,7 @@ public class BossController : MonoBehaviour
         {
             // Dừng di chuyển để tấn công
             rb.velocity = new Vector2(0, rb.velocity.y);
-            if (anim != null) anim.SetBool("isMoving", false);
+            if (anim != null && HasAnimParam("isMoving")) anim.SetBool("isMoving", false);
 
             if (Time.time >= nextAttackTime)
             {
@@ -102,20 +102,20 @@ public class BossController : MonoBehaviour
             else if (direction.x < 0)
                 transform.rotation = Quaternion.Euler(0, 0, 0);
             
-            if (anim != null) anim.SetBool("isMoving", true);
+            if (anim != null && HasAnimParam("isMoving")) anim.SetBool("isMoving", true);
         }
         else
         {
             // Ở trạng thái Idle
             rb.velocity = new Vector2(0, rb.velocity.y);
-            if (anim != null) anim.SetBool("isMoving", false);
+            if (anim != null && HasAnimParam("isMoving")) anim.SetBool("isMoving", false);
         }
     }
 
     private void Attack()
     {
         nextAttackTime = Time.time + attackCooldown;
-        if (anim != null) anim.SetTrigger("isAttacking");
+        if (anim != null && HasAnimParam("isAttacking")) anim.SetTrigger("isAttacking");
         
         if (playerHealth != null) 
         {
@@ -164,7 +164,7 @@ public class BossController : MonoBehaviour
             StartCoroutine("FlashHurtColor");
         }
         
-        if (anim != null) anim.SetTrigger("isHurt");
+        if (anim != null && HasAnimParam("isHurt")) anim.SetTrigger("isHurt");
     }
 
     private IEnumerator FlashHurtColor()
@@ -179,16 +179,48 @@ public class BossController : MonoBehaviour
         if (isDead) return;
         isDead = true;
         rb.velocity = Vector2.zero;
+
+        // Ẩn UI thanh máu Boss
+        if (UIManager.Instance != null)
+        {
+            UIManager.Instance.HideBossHealth();
+        }
+
+        // Hồi đầy máu cho người chơi
+        if (playerHealth != null)
+        {
+            playerHealth.changeHealth(playerHealth.maxHealth); // Sẽ tự động bị giới hạn ở maxHealth trong script Health
+            Debug.Log("Player được hồi đầy máu sau khi đánh bại Boss!");
+        }
+
+        // Tăng sát thương cho người chơi
+        if (player != null)
+        {
+            Player p = player.GetComponent<Player>();
+            if (p != null)
+            {
+                p.UnlockSkill("Streng");
+            }
+        }
+
         StartCoroutine(DeathRoutine());
     }
 
     private IEnumerator DeathRoutine()
     {
-        if (anim != null) anim.SetTrigger("isDead");
+        if (anim != null && HasAnimParam("isDead")) anim.SetTrigger("isDead");
 
         // Đợi animation chạy xong (bạn có thể chỉnh số giây này cho khớp với độ dài animation Die của bạn)
         yield return new WaitForSeconds(deathDelay);
 
         Destroy(gameObject);
+    }
+
+    private bool HasAnimParam(string name)
+    {
+        if (anim == null || anim.runtimeAnimatorController == null) return false;
+        foreach (AnimatorControllerParameter p in anim.parameters)
+            if (p.name == name) return true;
+        return false;
     }
 }

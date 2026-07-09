@@ -16,7 +16,6 @@ public class PlayerMoveState : PlayerState
     {
         base.Update();
 
-        // Kiểm tra bấm chuột trái và thời gian hồi chiêu
         if (Input.GetMouseButtonDown(0) && player.CanAttack())
         {
             stateMachine.ChangeState(player.AttackState);
@@ -29,7 +28,6 @@ public class PlayerMoveState : PlayerState
             return;
         }
 
-        // Chuyển sang lăn nếu bấm xuống
         if (Input.GetAxisRaw("Vertical") < -0.1f)
         {
             stateMachine.ChangeState(player.RollState);
@@ -46,6 +44,11 @@ public class PlayerMoveState : PlayerState
     public override void FixedUpdate()
     {
         base.FixedUpdate();
-        player.rb.velocity = new Vector2(player.horizontalInput * player.moveSpeed, player.rb.velocity.y);
+
+        float finalSpeed = player.moveSpeed;
+        if (player.stanceManager != null)
+            finalSpeed *= player.stanceManager.GetSpeedMultiplier();
+
+        player.rb.velocity = new Vector2(player.horizontalInput * finalSpeed, player.rb.velocity.y);
     }
 }

@@ -13,7 +13,7 @@ public class PlayerAttackState : PlayerState
     public override void Enter()
     {
         base.Enter();
-        player.anim.SetBool("isAttacking", true);
+        if (player.anim != null) player.anim.SetBool("isAttacking", true);
         player.rb.velocity = new Vector2(0,player.rb.velocity.y);
 
         // Reset cờ hoàn thành đòn đánh
@@ -22,7 +22,7 @@ public class PlayerAttackState : PlayerState
         // Cập nhật mốc thời gian cho đòn đánh tiếp theo thông qua Combat
         if (player.combat != null)
         {
-            player.combat.nextAttackTime = Time.time + player.combat.attackCooldown;
+            player.combat.nextAttackTime = Time.time + player.combat.GetCurrentAttackCooldown();
         }
     }
 
@@ -40,7 +40,7 @@ public class PlayerAttackState : PlayerState
     public override void Exit()
     {
         base.Exit();
-        player.anim.SetBool("isAttacking", false);
+        if (player.anim != null) player.anim.SetBool("isAttacking", false);
     }
 
 }
