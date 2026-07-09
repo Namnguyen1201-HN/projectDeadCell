@@ -43,14 +43,24 @@ public class PatrolEnemy : EnemyBase
 
         Transform target = movingToB ? pointB : pointA;
         Vector2 dir = (target.position - transform.position).normalized;
-        
-        rb.velocity = new Vector2(dir.x * currentSpeed, rb.velocity.y);
-        
-        // Xoay mặt theo hướng đi
-        if (dir.x > 0) transform.rotation = Quaternion.Euler(0, 180, 0);
-        else if (dir.x < 0) transform.rotation = Quaternion.Euler(0, 0, 0);
 
-        if (anim != null) anim.SetBool("isRunning", true);
+        if (CanMoveForward(dir.x))
+        {
+            rb.velocity = new Vector2(dir.x * currentSpeed, rb.velocity.y);
+
+            // Xoay mặt theo hướng đi
+            if (dir.x > 0) transform.rotation = Quaternion.Euler(0, 180, 0);
+            else if (dir.x < 0) transform.rotation = Quaternion.Euler(0, 0, 0);
+
+            if (anim != null) anim.SetBool("isRunning", true);
+        }
+        else
+        {
+            // Nếu gặp vực hoặc tường thì quay lại ngay lập tức
+            movingToB = !movingToB;
+            rb.velocity = new Vector2(0, rb.velocity.y);
+            if (anim != null) anim.SetBool("isRunning", false);
+        }
 
         // Kiểm tra đến nơi để đảo chiều
         if (Vector2.Distance(transform.position, target.position) < 0.5f)

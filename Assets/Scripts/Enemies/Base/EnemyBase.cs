@@ -51,14 +51,43 @@ public abstract class EnemyBase : MonoBehaviour
     protected Rigidbody2D rb;
     public Animator anim;
     public Health health;
+    protected Collider2D coll;
 
     protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        coll = GetComponent<Collider2D>();
         if (anim == null) anim = GetComponentInChildren<Animator>();
         if (health == null) health = GetComponent<Health>();
         if (spriteRenderer == null) spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         if (spriteRenderer != null) originalColor = spriteRenderer.color;
+    }
+
+    protected bool CanMoveForward(float dirX)
+    {
+        if (coll == null) return true;
+
+        Vector2 origin = coll.bounds.center;
+        float xExtents = coll.bounds.extents.x;
+        float yExtents = coll.bounds.extents.y;
+        float checkDirection = dirX > 0 ? 1f : -1f;
+
+        // Front bottom edge
+        Vector2 frontEdge = new Vector2(origin.x + xExtents * checkDirection, origin.y - yExtents);
+        LayerMask groundMask = LayerMask.GetMask("Ground");
+
+        // 1. Check Ledge (is there ground below the front edge?)
+        RaycastHit2D groundHit = Physics2D.Raycast(frontEdge, Vector2.down, 1f, groundMask);
+        if (groundHit.collider == null)
+            return false; // Ledge ahead!
+
+        // 2. Check Wall (is there a wall in front?)
+        Vector2 centerFront = new Vector2(origin.x + xExtents * checkDirection, origin.y);
+        RaycastHit2D wallHit = Physics2D.Raycast(centerFront, new Vector2(checkDirection, 0), 0.2f, groundMask);
+        if (wallHit.collider != null && !wallHit.collider.isTrigger)
+            return false; // Wall ahead!
+
+        return true;
     }
 
     protected virtual void Start()
@@ -104,7 +133,7 @@ public abstract class EnemyBase : MonoBehaviour
     protected virtual void Attack()
     {
         nextAttackTime = Time.time + attackCooldown;
-        if (anim != null) anim.SetTrigger("isAttacking");
+        if (anim != null && HasAnimatorParameter("isAttacking")) anim.SetTrigger("isAttacking");
         
         // Cận chiến cơ bản: deal damage trực tiếp (Archer sẽ override bắn đạn)
         if (playerHealth != null)
@@ -120,6 +149,14 @@ public abstract class EnemyBase : MonoBehaviour
         float dir = player.position.x - transform.position.x;
         if (dir > 0) transform.rotation = Quaternion.Euler(0, 180, 0);
         else if (dir < 0) transform.rotation = Quaternion.Euler(0, 0, 0);
+    }
+
+    protected bool HasAnimatorParameter(string parameterName)
+    {
+        if (anim == null || anim.runtimeAnimatorController == null) return false;
+        foreach (AnimatorControllerParameter p in anim.parameters)
+            if (p.name == parameterName) return true;
+        return false;
     }
 
     protected float DistanceToPlayer()
@@ -141,7 +178,7 @@ public abstract class EnemyBase : MonoBehaviour
             StopCoroutine("FlashHurtColor");
             StartCoroutine("FlashHurtColor");
         }
-        if (anim != null) anim.SetTrigger("isDamaged");
+        if (anim != null && HasAnimatorParameter("isDamaged")) anim.SetTrigger("isDamaged");
     }
 
     protected IEnumerator FlashHurtColor()
@@ -184,7 +221,7 @@ public abstract class EnemyBase : MonoBehaviour
 
     protected virtual IEnumerator DeathRoutine()
     {
-        if (anim != null) anim.SetTrigger("isDead");
+        if (anim != null && HasAnimatorParameter("isDead")) anim.SetTrigger("isDead");
         rb.velocity = Vector2.zero;
         rb.isKinematic = true; // Ngừng vật lý
         GetComponent<Collider2D>().enabled = false;
