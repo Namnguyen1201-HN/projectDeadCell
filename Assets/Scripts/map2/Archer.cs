@@ -8,6 +8,7 @@ public class Archer : Player
 
     protected override void Awake()
     {
+        base.Awake();
         StateMachine = new PlayerStateMachine();
         
         // Khởi tạo các trạng thái bằng State của Player nhưng truyền tên bool Animation của Archer

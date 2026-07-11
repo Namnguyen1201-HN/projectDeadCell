@@ -24,12 +24,22 @@ public class NewBehaviourScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        lastCameraPosition = camTransform.position;
+        if (camTransform == null && Camera.main != null)
+        {
+            camTransform = Camera.main.transform;
+        }
+        
+        if (camTransform != null)
+        {
+            lastCameraPosition = camTransform.position;
+        }
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
+        if (camTransform == null) return;
+
         Vector3 cameraDelta = camTransform.position - lastCameraPosition;
 
         foreach(ParallaxLayer layer in layers)
