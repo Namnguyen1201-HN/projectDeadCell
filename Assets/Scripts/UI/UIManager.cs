@@ -16,6 +16,32 @@ public class UIManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        // Ép tìm lại Player đang active trên Scene để tránh dính reference cũ
+        Player[] allPlayers = FindObjectsOfType<Player>();
+        foreach (Player p in allPlayers)
+        {
+            if (p.gameObject.activeInHierarchy)
+            {
+                // Ưu tiên player có tag là "Player" hoặc là Archer
+                if (p.CompareTag("Player") || p is Archer)
+                {
+                    player = p;
+                    break;
+                }
+                
+                // Fallback nếu không có tag
+                if (player == null)
+                {
+                    player = p;
+                }
+            }
+        }
+
+        if (player != null)
+        {
+            playerHealth = player.GetComponent<Health>();
+        }
     }
     [Header("Player References")]
     public Player player;
@@ -42,6 +68,10 @@ public class UIManager : MonoBehaviour
     [Header("Buffs/Skills Settings")]
     // Danh sách tất cả các UI của Icon buff mà mình kéo vào từ Inspector
     public List<BuffIconUI> buffIcons;
+
+    [Header("Items Settings")]
+    public TMPro.TextMeshProUGUI keyText;
+    private int lastKeyCount = -1;
 
     private void OnEnable()
     {
@@ -106,6 +136,16 @@ public class UIManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             TogglePause();
+        }
+
+        // Cập nhật số lượng chìa khóa
+        if (player != null && keyText != null)
+        {
+            if (player.keyCount != lastKeyCount)
+            {
+                lastKeyCount = player.keyCount;
+                keyText.text = lastKeyCount.ToString();
+            }
         }
     }
 

@@ -64,7 +64,7 @@ public class Player : MonoBehaviour
     public WeaponSystem weaponSystem;
     public BuffReceiver buffReceiver;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         stanceManager = GetComponent<StanceManager>();
         weaponSystem = GetComponent<WeaponSystem>();
