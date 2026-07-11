@@ -224,8 +224,10 @@ public class ShadowDragonBoss : BossBase
     private void ChasePlayer()
     {
         Vector2 dir = (player.position - transform.position).normalized;
-        rb.velocity = new Vector2(dir.x * moveSpeed * currentSpeedMultiplier, rb.velocity.y);
-        if (anim != null && HasAnimatorParameter("isRunning")) anim.SetBool("isRunning", true);
+        float horizontalDirection = Mathf.Sign(dir.x);
+        bool canMove = CanMoveForward(horizontalDirection);
+        rb.velocity = new Vector2(canMove ? horizontalDirection * moveSpeed * currentSpeedMultiplier : 0f, rb.velocity.y);
+        if (anim != null && HasAnimatorParameter("isRunning")) anim.SetBool("isRunning", canMove);
     }
 
     private Vector3 GetFirePosition()
