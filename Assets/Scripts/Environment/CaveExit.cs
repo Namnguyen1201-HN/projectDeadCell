@@ -9,11 +9,21 @@ using UnityEngine.SceneManagement;
 public class CaveExit : MonoBehaviour
 {
     [Header("Settings")]
+    [Tooltip("Scene chuyển tiếp khi nhấn nút Chuyển màn")]
+    public string nextSceneName = "SummerLevel";
+
     [Tooltip("Tên Scene của Menu chính để thoát ra")]
     public string menuSceneName = "MainMenu";
     
     [Tooltip("Bắt buộc phải tiêu diệt Boss mới được qua cửa?")]
     public bool requireBossDefeated = true;
+
+    [Header("UI Settings")]
+    [Tooltip("Sử dụng Panel kết thúc thay vì chuyển Scene luôn")]
+    public bool useEndGamePanel = true;
+
+    [Tooltip("Thông báo hiện ra khi kết thúc màn")]
+    public string endMessage = "Lõi cân bằng mùa xuân đã được thu hồi.";
 
     private void Awake()
     {
@@ -46,17 +56,24 @@ public class CaveExit : MonoBehaviour
                 }
             }
 
-            Debug.Log("Đã tiêu diệt Boss, tiến hành thoát ra Menu...");
+            Debug.Log("Đã tiêu diệt Boss, tiến hành kết thúc màn...");
             
-            // Chuyển Scene thông qua SceneTransitionManager để có hiệu ứng Fade đen mượt mà
-            if (SceneTransitionManager.Instance != null)
+            if (useEndGamePanel && UIManager.Instance != null)
             {
-                SceneTransitionManager.Instance.LoadScene(menuSceneName);
+                UIManager.Instance.ShowLevelEndPanel(endMessage, nextSceneName, menuSceneName);
             }
             else
             {
-                // Dự phòng nếu không có SceneTransitionManager
-                SceneManager.LoadScene(menuSceneName);
+                // Chuyển Scene thông qua SceneTransitionManager để có hiệu ứng Fade đen mượt mà
+                if (SceneTransitionManager.Instance != null)
+                {
+                    SceneTransitionManager.Instance.LoadScene(nextSceneName);
+                }
+                else
+                {
+                    // Dự phòng nếu không có SceneTransitionManager
+                    SceneManager.LoadScene(nextSceneName);
+                }
             }
         }
         else

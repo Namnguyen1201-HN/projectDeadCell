@@ -73,6 +73,12 @@ public class UIManager : MonoBehaviour
     public TMPro.TextMeshProUGUI keyText;
     private int lastKeyCount = -1;
 
+    [Header("Level End Settings")]
+    public GameObject levelEndPanel;
+    public TMPro.TextMeshProUGUI levelEndMessageText;
+    private string levelEndNextScene;
+    private string levelEndMenuScene;
+
     private void OnEnable()
     {
         // Đăng ký sự kiện (lắng nghe)
@@ -127,6 +133,12 @@ public class UIManager : MonoBehaviour
         if (pauseMenuPanel != null)
         {
             pauseMenuPanel.SetActive(false);
+        }
+
+        // Ẩn Panel Kết thúc màn khi mới bắt đầu game
+        if (levelEndPanel != null)
+        {
+            levelEndPanel.SetActive(false);
         }
     }
 
@@ -308,5 +320,49 @@ public class UIManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+    }
+
+    // -- LEVEL END UI --
+    public void ShowLevelEndPanel(string message, string nextScene, string menuScene)
+    {
+        levelEndNextScene = nextScene;
+        levelEndMenuScene = menuScene;
+
+        if (levelEndMessageText != null)
+        {
+            levelEndMessageText.text = message;
+        }
+
+        if (levelEndPanel != null)
+        {
+            levelEndPanel.SetActive(true);
+        }
+
+        // Tạm dừng game khi hiện bảng kết thúc
+        Time.timeScale = 0f;
+    }
+
+    public void OnLevelEndNextClicked()
+    {
+        Time.timeScale = 1f;
+        if (!string.IsNullOrEmpty(levelEndNextScene))
+        {
+            if (SceneTransitionManager.Instance != null)
+                SceneTransitionManager.Instance.LoadScene(levelEndNextScene);
+            else
+                UnityEngine.SceneManagement.SceneManager.LoadScene(levelEndNextScene);
+        }
+    }
+
+    public void OnLevelEndMenuClicked()
+    {
+        Time.timeScale = 1f;
+        if (!string.IsNullOrEmpty(levelEndMenuScene))
+        {
+            if (SceneTransitionManager.Instance != null)
+                SceneTransitionManager.Instance.LoadScene(levelEndMenuScene);
+            else
+                UnityEngine.SceneManagement.SceneManager.LoadScene(levelEndMenuScene);
+        }
     }
 }
