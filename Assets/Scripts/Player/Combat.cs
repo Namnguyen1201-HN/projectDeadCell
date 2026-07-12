@@ -111,6 +111,9 @@ public class Combat : MonoBehaviour
         
         arrow.SetActive(true);
 
+        Arrow oldArrow = arrow.GetComponent<Arrow>();
+        if (oldArrow != null) Destroy(oldArrow);
+
         Vector2 direction = player != null && !player.isFacingRight ? Vector2.left : Vector2.right;
 
         PlayerProjectile playerProjectile = arrow.GetComponent<PlayerProjectile>();
