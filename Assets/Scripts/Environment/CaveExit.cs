@@ -10,7 +10,7 @@ public class CaveExit : MonoBehaviour
 {
     [Header("Settings")]
     [Tooltip("Scene chuyển tiếp khi nhấn nút Chuyển màn")]
-    public string nextSceneName = "SummerLevel";
+    public string nextSceneName = "SampleScene 1";
 
     [Tooltip("Tên Scene của Menu chính để thoát ra")]
     public string menuSceneName = "MainMenu";
@@ -60,19 +60,19 @@ public class CaveExit : MonoBehaviour
             
             if (useEndGamePanel && UIManager.Instance != null)
             {
-                UIManager.Instance.ShowLevelEndPanel(endMessage, nextSceneName, menuSceneName);
+                UIManager.Instance.ShowLevelEndPanel(endMessage, ResolveSceneAlias(nextSceneName), menuSceneName);
             }
             else
             {
                 // Chuyển Scene thông qua SceneTransitionManager để có hiệu ứng Fade đen mượt mà
                 if (SceneTransitionManager.Instance != null)
                 {
-                    SceneTransitionManager.Instance.LoadScene(nextSceneName);
+                    SceneTransitionManager.Instance.LoadScene(ResolveSceneAlias(nextSceneName));
                 }
                 else
                 {
                     // Dự phòng nếu không có SceneTransitionManager
-                    SceneManager.LoadScene(nextSceneName);
+                    SceneManager.LoadScene(ResolveSceneAlias(nextSceneName));
                 }
             }
         }
@@ -80,5 +80,9 @@ public class CaveExit : MonoBehaviour
         {
             Debug.Log($"CaveExit: Object {collision.name} chạm vào nhưng không phải Player.");
         }
+    }
+    private string ResolveSceneAlias(string sceneName)
+    {
+        return sceneName == "SummerLevel" ? "SampleScene 1" : sceneName;
     }
 }
