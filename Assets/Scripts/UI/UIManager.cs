@@ -325,7 +325,7 @@ public class UIManager : MonoBehaviour
     // -- LEVEL END UI --
     public void ShowLevelEndPanel(string message, string nextScene, string menuScene)
     {
-        levelEndNextScene = nextScene;
+        levelEndNextScene = ResolveSceneAlias(nextScene);
         levelEndMenuScene = menuScene;
 
         if (levelEndMessageText != null)
@@ -352,6 +352,11 @@ public class UIManager : MonoBehaviour
             else
                 UnityEngine.SceneManagement.SceneManager.LoadScene(levelEndNextScene);
         }
+    }
+
+    private string ResolveSceneAlias(string sceneName)
+    {
+        return sceneName == "SummerLevel" ? "SampleScene 1" : sceneName;
     }
 
     public void OnLevelEndMenuClicked()

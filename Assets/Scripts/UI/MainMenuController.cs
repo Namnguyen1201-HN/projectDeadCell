@@ -8,7 +8,7 @@ public class MainMenuController : MonoBehaviour
     [Tooltip("Tên Scene chính của game bạn muốn load khi bấm Bắt Đầu")]
     public string mainGameSceneName = "SpringLeverScenes";
     [SerializeField] private string springSceneName = "SpringLeverScenes";
-    [SerializeField] private string summerSceneName = "SummerLevel";
+    [SerializeField] private string summerSceneName = "SampleScene 1";
     [SerializeField] private string autumnSceneName = "AutumnRuins";
     [SerializeField] private string winterSceneName = "WinterLevel";
 
@@ -71,6 +71,7 @@ public class MainMenuController : MonoBehaviour
     // 3. Load màn Mùa Thu
     public void LoadAutumnRuins()
     {
+        Debug.Log("[MainMenu] Autumn selected.");
         LoadSceneByName(autumnSceneName);
     }
 
@@ -82,6 +83,7 @@ public class MainMenuController : MonoBehaviour
 
     public void LoadSummerScene()
     {
+        Debug.Log("[MainMenu] Summer selected.");
         LoadSceneByName(summerSceneName);
     }
 
@@ -140,15 +142,18 @@ public class MainMenuController : MonoBehaviour
         panelImage.raycastTarget = false;
         panelImage.preserveAspect = false;
 
-        CreateInvisibleLevelButton("Hitbox_Spring", new Vector2(0.17f, 0.50f), new Vector2(0.41f, 0.69f), LoadSpringScenes);
-        CreateInvisibleLevelButton("Hitbox_Autumn", new Vector2(0.17f, 0.29f), new Vector2(0.41f, 0.48f), LoadAutumnRuins);
+        CreateInvisibleLevelButton("Hitbox_Spring", new Vector2(0.21f, 0.39f), new Vector2(0.49f, 0.62f), LoadSpringScenes);
+        CreateInvisibleLevelButton("Hitbox_Summer", new Vector2(0.51f, 0.39f), new Vector2(0.79f, 0.62f), LoadSummerScene);
+        CreateInvisibleLevelButton("Hitbox_Autumn", new Vector2(0.21f, 0.16f), new Vector2(0.49f, 0.39f), LoadAutumnRuins);
 
         levelSelectBuilt = true;
     }
 
     private void ResolveLevelSelectPanel()
     {
-        Canvas canvas = FindObjectOfType<Canvas>();
+        Canvas canvas = GetComponentInParent<Canvas>();
+        if (canvas == null)
+            canvas = FindObjectOfType<Canvas>();
         if (canvas == null)
         {
             Debug.LogWarning("[MainMenu] No Canvas found for level select menu.");
@@ -219,6 +224,9 @@ public class MainMenuController : MonoBehaviour
 
     private void LoadSceneByName(string sceneName)
     {
+        if (sceneName == "SummerLevel")
+            sceneName = "SampleScene 1";
+
         if (string.IsNullOrWhiteSpace(sceneName))
         {
             Debug.LogWarning("[MainMenu] Scene name is empty.");
@@ -231,6 +239,7 @@ public class MainMenuController : MonoBehaviour
             return;
         }
 
+        Debug.Log("[MainMenu] Loading scene: " + sceneName);
         SceneManager.LoadScene(sceneName);
     }
 }
