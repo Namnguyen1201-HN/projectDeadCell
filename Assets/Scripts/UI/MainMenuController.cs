@@ -8,7 +8,7 @@ public class MainMenuController : MonoBehaviour
     [Tooltip("Tên Scene chính của game bạn muốn load khi bấm Bắt Đầu")]
     public string mainGameSceneName = "SpringLeverScenes";
     [SerializeField] private string springSceneName = "SpringLeverScenes";
-    [SerializeField] private string summerSceneName = "SummerLevel";
+    [SerializeField] private string summerSceneName = "SampleScene 1";
     [SerializeField] private string autumnSceneName = "AutumnRuins";
     [SerializeField] private string winterSceneName = "WinterLevel";
 
@@ -26,7 +26,8 @@ public class MainMenuController : MonoBehaviour
 
     private void Start()
     {
-        ResolveDuplicateLevelSelectPanels();
+        ResolveLevelSelectPanel();
+        EnsureNewGameButtonOpensLevelSelect();
         if (rebuildLevelSelectPanel) BuildGeneratedLevelSelect();
 
         if (storyPanel != null) storyPanel.SetActive(false);
@@ -53,7 +54,11 @@ public class MainMenuController : MonoBehaviour
     {
         if (rebuildLevelSelectPanel && !levelSelectBuilt) BuildGeneratedLevelSelect();
 
-        if (levelSelectPanel != null) levelSelectPanel.SetActive(true);
+        if (levelSelectPanel != null)
+        {
+            levelSelectPanel.transform.SetAsLastSibling();
+            levelSelectPanel.SetActive(true);
+        }
         if (mainMenuPanel != null) mainMenuPanel.SetActive(false);
     }
 
@@ -66,6 +71,7 @@ public class MainMenuController : MonoBehaviour
     // 3. Load màn Mùa Thu
     public void LoadAutumnRuins()
     {
+        Debug.Log("[MainMenu] Autumn selected.");
         LoadSceneByName(autumnSceneName);
     }
 
@@ -77,6 +83,7 @@ public class MainMenuController : MonoBehaviour
 
     public void LoadSummerScene()
     {
+        Debug.Log("[MainMenu] Summer selected.");
         LoadSceneByName(summerSceneName);
     }
 
@@ -89,7 +96,7 @@ public class MainMenuController : MonoBehaviour
     public void StartNewGame()
     {
         Debug.Log("Bắt đầu game mới! Đang load scene: " + mainGameSceneName);
-        LoadSceneByName(mainGameSceneName);
+        ShowLevelSelect();
     }
 
     // 4. Hướng dẫn chơi
@@ -135,33 +142,63 @@ public class MainMenuController : MonoBehaviour
         panelImage.raycastTarget = false;
         panelImage.preserveAspect = false;
 
-        CreateInvisibleLevelButton("Hitbox_Spring", new Vector2(0.17f, 0.50f), new Vector2(0.41f, 0.69f), LoadSpringScenes);
-        CreateInvisibleLevelButton("Hitbox_Summer", new Vector2(0.41f, 0.50f), new Vector2(0.65f, 0.69f), LoadSummerScene);
-        CreateInvisibleLevelButton("Hitbox_Autumn", new Vector2(0.17f, 0.29f), new Vector2(0.41f, 0.48f), LoadAutumnRuins);
-        CreateInvisibleLevelButton("Hitbox_Winter", new Vector2(0.41f, 0.29f), new Vector2(0.65f, 0.48f), LoadWinterScene);
+        CreateInvisibleLevelButton("Hitbox_Spring", new Vector2(0.21f, 0.39f), new Vector2(0.49f, 0.62f), LoadSpringScenes);
+        CreateInvisibleLevelButton("Hitbox_Summer", new Vector2(0.51f, 0.39f), new Vector2(0.79f, 0.62f), LoadSummerScene);
+        CreateInvisibleLevelButton("Hitbox_Autumn", new Vector2(0.21f, 0.16f), new Vector2(0.49f, 0.39f), LoadAutumnRuins);
 
         levelSelectBuilt = true;
     }
 
-    private void ResolveDuplicateLevelSelectPanels()
+    private void ResolveLevelSelectPanel()
     {
-        RectTransform[] rectTransforms = FindObjectsOfType<RectTransform>(true);
+        Canvas canvas = GetComponentInParent<Canvas>();
+        if (canvas == null)
+            canvas = FindObjectOfType<Canvas>();
+        if (canvas == null)
+        {
+            Debug.LogWarning("[MainMenu] No Canvas found for level select menu.");
+            return;
+        }
+
+        Transform generatedPanel = canvas.transform.Find("GeneratedLevelSelectPanel");
+        if (generatedPanel == null)
+        {
+            GameObject panelObject = new GameObject("GeneratedLevelSelectPanel", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
+            generatedPanel = panelObject.transform;
+            generatedPanel.SetParent(canvas.transform, false);
+
+            RectTransform rect = panelObject.GetComponent<RectTransform>();
+            rect.anchorMin = Vector2.zero;
+            rect.anchorMax = Vector2.one;
+            rect.offsetMin = Vector2.zero;
+            rect.offsetMax = Vector2.zero;
+            rect.pivot = new Vector2(0.5f, 0.5f);
+        }
+
+        levelSelectPanel = generatedPanel.gameObject;
+        levelSelectPanel.transform.SetAsLastSibling();
+
+        RectTransform[] rectTransforms = canvas.GetComponentsInChildren<RectTransform>(true);
         foreach (RectTransform rectTransform in rectTransforms)
         {
             if (rectTransform.name != "LevelSelectPanel") continue;
-
-            GameObject panel = rectTransform.gameObject;
-            if (levelSelectPanel == null)
-            {
-                levelSelectPanel = panel;
-                continue;
-            }
-
-            if (panel != levelSelectPanel)
-            {
-                panel.SetActive(false);
-            }
+            rectTransform.gameObject.SetActive(false);
         }
+
+        levelSelectPanel.SetActive(false);
+    }
+
+    private void EnsureNewGameButtonOpensLevelSelect()
+    {
+        GameObject newGameButtonObject = GameObject.Find("Btn_NewGame");
+        if (newGameButtonObject == null) return;
+
+        Button newGameButton = newGameButtonObject.GetComponent<Button>();
+        if (newGameButton == null) return;
+
+        newGameButton.onClick.RemoveListener(StartNewGame);
+        newGameButton.onClick.RemoveListener(ShowLevelSelect);
+        newGameButton.onClick.AddListener(ShowLevelSelect);
     }
 
     private void CreateInvisibleLevelButton(string buttonName, Vector2 anchorMin, Vector2 anchorMax, UnityEngine.Events.UnityAction onClick)
@@ -187,6 +224,9 @@ public class MainMenuController : MonoBehaviour
 
     private void LoadSceneByName(string sceneName)
     {
+        if (sceneName == "SummerLevel")
+            sceneName = "SampleScene 1";
+
         if (string.IsNullOrWhiteSpace(sceneName))
         {
             Debug.LogWarning("[MainMenu] Scene name is empty.");
@@ -199,6 +239,7 @@ public class MainMenuController : MonoBehaviour
             return;
         }
 
+        Debug.Log("[MainMenu] Loading scene: " + sceneName);
         SceneManager.LoadScene(sceneName);
     }
 }
