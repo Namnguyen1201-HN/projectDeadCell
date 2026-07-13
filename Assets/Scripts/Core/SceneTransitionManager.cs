@@ -44,6 +44,7 @@ public class SceneTransitionManager : MonoBehaviour
     public void LoadScene(string sceneName)
     {
         if (_isTransitioning) return;
+        sceneName = ResolveSceneAlias(sceneName);
         StartCoroutine(TransitionRoutine(sceneName));
     }
 
@@ -64,6 +65,7 @@ public class SceneTransitionManager : MonoBehaviour
 
     private IEnumerator TransitionRoutine(string sceneName)
     {
+        sceneName = ResolveSceneAlias(sceneName);
         _isTransitioning = true;
         yield return StartCoroutine(FadeTo(1f));
 
@@ -72,6 +74,11 @@ public class SceneTransitionManager : MonoBehaviour
         yield return null; // Đợi frame mới scene load xong
         yield return StartCoroutine(FadeTo(0f));
         _isTransitioning = false;
+    }
+
+    private string ResolveSceneAlias(string sceneName)
+    {
+        return sceneName == "SummerLevel" ? "SampleScene 1" : sceneName;
     }
 
     private IEnumerator TransitionRoutine(int buildIndex)

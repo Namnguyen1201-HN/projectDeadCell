@@ -24,6 +24,7 @@ public class PlayerMoveState : PlayerState
 
         if (Input.GetButtonDown("Jump") && player.isGrounded)
         {
+            if (Input.GetAxisRaw("Vertical") < -0.1f) return;
             stateMachine.ChangeState(player.JumpState);
             return;
         }

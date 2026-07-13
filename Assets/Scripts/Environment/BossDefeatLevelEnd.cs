@@ -5,7 +5,10 @@ using UnityEngine.SceneManagement;
 public class BossDefeatLevelEnd : MonoBehaviour
 {
     public string nextSceneName = "MainMenu";
-    public float delay = 2.5f;
+    public float delay = 1f;
+    public GameObject victoryPanel;
+    public float victoryDisplayDuration = 3.5f;
+    public bool freezeGameDuringVictory = true;
 
     private Health health;
     private bool ending;
@@ -30,12 +33,24 @@ public class BossDefeatLevelEnd : MonoBehaviour
     {
         if (ending) return;
         ending = true;
-        StartCoroutine(EndLevelRoutine());
+        if (UIManager.Instance != null)
+            UIManager.Instance.StartCoroutine(EndLevelRoutine());
+        else
+            StartCoroutine(EndLevelRoutine());
     }
 
     private IEnumerator EndLevelRoutine()
     {
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSecondsRealtime(Mathf.Max(0f, delay));
+
+        if (UIManager.Instance != null)
+            UIManager.Instance.HideBossHealth();
+        if (victoryPanel != null)
+            victoryPanel.SetActive(true);
+        if (freezeGameDuringVictory)
+            Time.timeScale = 0f;
+
+        yield return new WaitForSecondsRealtime(Mathf.Max(0.5f, victoryDisplayDuration));
         Time.timeScale = 1f;
 
         if (!string.IsNullOrEmpty(nextSceneName) && Application.CanStreamedLevelBeLoaded(nextSceneName))

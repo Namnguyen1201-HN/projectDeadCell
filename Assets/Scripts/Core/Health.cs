@@ -70,3 +70,4 @@ public class Health : MonoBehaviour
         onHealthChanged?.Invoke(health, maxHealth);
     }
 }
+// Force recompile

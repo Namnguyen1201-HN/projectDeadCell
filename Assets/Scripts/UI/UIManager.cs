@@ -16,6 +16,32 @@ public class UIManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        // Ép tìm lại Player đang active trên Scene để tránh dính reference cũ
+        Player[] allPlayers = FindObjectsOfType<Player>();
+        foreach (Player p in allPlayers)
+        {
+            if (p.gameObject.activeInHierarchy)
+            {
+                // Ưu tiên player có tag là "Player" hoặc là Archer
+                if (p.CompareTag("Player") || p is Archer)
+                {
+                    player = p;
+                    break;
+                }
+                
+                // Fallback nếu không có tag
+                if (player == null)
+                {
+                    player = p;
+                }
+            }
+        }
+
+        if (player != null)
+        {
+            playerHealth = player.GetComponent<Health>();
+        }
     }
     [Header("Player References")]
     public Player player;
@@ -42,6 +68,16 @@ public class UIManager : MonoBehaviour
     [Header("Buffs/Skills Settings")]
     // Danh sách tất cả các UI của Icon buff mà mình kéo vào từ Inspector
     public List<BuffIconUI> buffIcons;
+
+    [Header("Items Settings")]
+    public TMPro.TextMeshProUGUI keyText;
+    private int lastKeyCount = -1;
+
+    [Header("Level End Settings")]
+    public GameObject levelEndPanel;
+    public TMPro.TextMeshProUGUI levelEndMessageText;
+    private string levelEndNextScene;
+    private string levelEndMenuScene;
 
     private void OnEnable()
     {
@@ -98,6 +134,12 @@ public class UIManager : MonoBehaviour
         {
             pauseMenuPanel.SetActive(false);
         }
+
+        // Ẩn Panel Kết thúc màn khi mới bắt đầu game
+        if (levelEndPanel != null)
+        {
+            levelEndPanel.SetActive(false);
+        }
     }
 
     private void Update()
@@ -106,6 +148,16 @@ public class UIManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             TogglePause();
+        }
+
+        // Cập nhật số lượng chìa khóa
+        if (player != null && keyText != null)
+        {
+            if (player.keyCount != lastKeyCount)
+            {
+                lastKeyCount = player.keyCount;
+                keyText.text = lastKeyCount.ToString();
+            }
         }
     }
 
@@ -268,5 +320,54 @@ public class UIManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+    }
+
+    // -- LEVEL END UI --
+    public void ShowLevelEndPanel(string message, string nextScene, string menuScene)
+    {
+        levelEndNextScene = ResolveSceneAlias(nextScene);
+        levelEndMenuScene = menuScene;
+
+        if (levelEndMessageText != null)
+        {
+            levelEndMessageText.text = message;
+        }
+
+        if (levelEndPanel != null)
+        {
+            levelEndPanel.SetActive(true);
+        }
+
+        // Tạm dừng game khi hiện bảng kết thúc
+        Time.timeScale = 0f;
+    }
+
+    public void OnLevelEndNextClicked()
+    {
+        Time.timeScale = 1f;
+        if (!string.IsNullOrEmpty(levelEndNextScene))
+        {
+            if (SceneTransitionManager.Instance != null)
+                SceneTransitionManager.Instance.LoadScene(levelEndNextScene);
+            else
+                UnityEngine.SceneManagement.SceneManager.LoadScene(levelEndNextScene);
+        }
+    }
+
+    private string ResolveSceneAlias(string sceneName)
+    {
+        return sceneName == "SummerLevel" ? "SampleScene 1" : sceneName;
+    }
+
+    public void OnLevelEndMenuClicked()
+    {
+        Time.timeScale = 1f;
+        if (!string.IsNullOrEmpty(levelEndMenuScene))
+        {
+            if (SceneTransitionManager.Instance != null)
+                SceneTransitionManager.Instance.LoadScene(levelEndMenuScene);
+            else
+                UnityEngine.SceneManagement.SceneManager.LoadScene(levelEndMenuScene);
+        }
     }
 }

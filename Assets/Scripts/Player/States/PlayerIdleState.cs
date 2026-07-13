@@ -27,6 +27,9 @@ public class PlayerIdleState : PlayerState
 
         if (Input.GetButtonDown("Jump") && player.isGrounded)
         {
+            // Không nhảy lên nếu đang bấm nút Xuống (để nhường cho logic tụt xuống của PlayerPassThroughPlatform)
+            if (Input.GetAxisRaw("Vertical") < -0.1f) return;
+
             stateMachine.ChangeState(player.JumpState);
             return;
         }
