@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class MainMenuController : MonoBehaviour
 {
     [Header("Scene Settings")]
-    [Tooltip("Tên Scene chính của game bạn muốn load khi bấm Bắt Đầu")]
+    
     public string mainGameSceneName = "SpringLeverScenes";
     [SerializeField] private string springSceneName = "SpringLeverScenes";
     [SerializeField] private string summerSceneName = "SampleScene 1";
@@ -16,7 +16,7 @@ public class MainMenuController : MonoBehaviour
     public GameObject mainMenuPanel;
     public GameObject storyPanel;
     public GameObject tutorialPanel;
-    public GameObject levelSelectPanel; // Panel chọn màn chơi
+    public GameObject levelSelectPanel; 
 
     [Header("Generated Level Select")]
     [SerializeField] private bool rebuildLevelSelectPanel = true;

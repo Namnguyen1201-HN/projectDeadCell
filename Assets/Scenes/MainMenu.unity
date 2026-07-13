@@ -1366,10 +1366,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainGameSceneName: SpringLeverScenes
+  springSceneName: SpringLeverScenes
+  summerSceneName: SummerLevel
+  autumnSceneName: AutumnRuins
+  winterSceneName: WinterLevel
   mainMenuPanel: {fileID: 0}
   storyPanel: {fileID: 1685782185}
   tutorialPanel: {fileID: 2123586160}
   levelSelectPanel: {fileID: 1501581966}
+  rebuildLevelSelectPanel: 1
+  levelSelectSpriteResourcePath: UI/SeasonLevelSelectMenu
 --- !u!4 &629806728
 Transform:
   m_ObjectHideFlags: 0

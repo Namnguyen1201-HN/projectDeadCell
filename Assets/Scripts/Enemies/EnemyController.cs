@@ -28,17 +28,17 @@ public class EnemyController : MonoBehaviour
 
     [Header("DeathFX")]
     [SerializeField] private GameObject[] deathParts;
-    [SerializeField] private float spawnForce = 5f;
-    [SerializeField] private float torque = 5;
-    [SerializeField] private float lifeTime = 2f;
+    [SerializeField] private float spawnForce;
+    [SerializeField] private float torque;
+    [SerializeField] private float lifeTime;
 
     [Header("Drop Items")]
     public GameObject keyPrefab;
     public GameObject healItemPrefab;
     [Range(0f, 1f)]
-    public float healItemDropChance = 0.2f;
+    public float healItemDropChance;
 
-    private float nextAttackTime = 0f;
+    private float nextAttackTime;
     private bool isStunned = false;
 
     private Rigidbody2D rb;

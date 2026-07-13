@@ -72,14 +72,12 @@ public class Player : MonoBehaviour
 
         StateMachine = new PlayerStateMachine();
 
-        // Khởi tạo các trạng thái và truyền tên bool của Animation
         IdleState = new PlayerIdleState(this, StateMachine, "isStand");
         MoveState = new PlayerMoveState(this, StateMachine, "isRunning");
         JumpState = new PlayerJumpState(this, StateMachine, "isJumping");
         RollState = new PlayerRollState(this, StateMachine, "isRolling");
         AttackState = new PlayerAttackState(this, StateMachine, "isAttacking");
 
-        // Thêm PhysicsMaterial2D không ma sát (Friction = 0) để tránh bị kẹt trên đầu quái hoặc dính tường
         PhysicsMaterial2D noFriction = new PhysicsMaterial2D("NoFriction");
         noFriction.friction = 0f;
         noFriction.bounciness = 0f;
@@ -95,13 +93,13 @@ public class Player : MonoBehaviour
             normalColliderOffset = coll.offset;
         }
 
-        // Bắt đầu FSM ở trạng thái đứng im
+        
         StateMachine.Initialize(IdleState);
     }
 
     protected virtual void Update()
     {
-        // Thu thập input và cờ trạng thái trước để các State dùng chung
+        
         horizontalInput = Input.GetAxisRaw("Horizontal");
 
         if (groundCheck != null)
@@ -109,8 +107,7 @@ public class Player : MonoBehaviour
 
         if (ceilingCheck != null)
             isCeilingHit = Physics2D.OverlapCircle(ceilingCheck.position, ceilingCheckRadius, groundLayer);
-
-        // Gọi logic của trạng thái hiện tại
+       
         StateMachine.CurrentState.Update();
 
         if (StateMachine.CurrentState != RollState)
@@ -160,7 +157,6 @@ public class Player : MonoBehaviour
                 Debug.Log("Đã Unlock Streng! Sát thương tăng lên thành: " + combat.attackDamage);
             }
         }
-        // Thêm các logic unlock skill khác ở đây sau này nếu cần
 
         onSkillUnlocked?.Invoke(skillName);
     }

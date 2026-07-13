@@ -1,10 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-/// <summary>
-/// Đính kèm script này vào GameObject cửa hang.
-/// Đảm bảo GameObject này có 1 component BoxCollider2D (hoặc tương tự) đã tick chọn ô "Is Trigger".
-/// </summary>
+
 [RequireComponent(typeof(Collider2D))]
 public class CaveExit : MonoBehaviour
 {
@@ -27,7 +24,7 @@ public class CaveExit : MonoBehaviour
 
     private void Awake()
     {
-        // Đảm bảo collider được set là trigger
+        
         Collider2D col = GetComponent<Collider2D>();
         if (col != null)
         {
@@ -37,21 +34,21 @@ public class CaveExit : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Kiểm tra xem đối tượng chạm vào cửa hang có phải là người chơi không
+        
         Player player = collision.GetComponentInParent<Player>();
         if (player != null || collision.CompareTag("Player"))
         {
             if (requireBossDefeated)
             {
-                // Tìm TẤT CẢ Boss trên bản đồ
+                
                 BossController[] bosses = FindObjectsOfType<BossController>();
                 foreach (BossController boss in bosses)
                 {
-                    // Chỉ cần 1 Boss còn sống (máu > 0), thì chặn lại
+                    
                     if (boss.health != null && boss.health.health > 0)
                     {
                         Debug.Log($"Bạn chưa đánh bại Boss {boss.gameObject.name}! Cửa hang chưa mở.");
-                        return; // Chặn không cho thoát
+                        return; 
                     }
                 }
             }
@@ -64,14 +61,14 @@ public class CaveExit : MonoBehaviour
             }
             else
             {
-                // Chuyển Scene thông qua SceneTransitionManager để có hiệu ứng Fade đen mượt mà
+                
                 if (SceneTransitionManager.Instance != null)
                 {
                     SceneTransitionManager.Instance.LoadScene(ResolveSceneAlias(nextSceneName));
                 }
                 else
                 {
-                    // Dự phòng nếu không có SceneTransitionManager
+                   
                     SceneManager.LoadScene(ResolveSceneAlias(nextSceneName));
                 }
             }
