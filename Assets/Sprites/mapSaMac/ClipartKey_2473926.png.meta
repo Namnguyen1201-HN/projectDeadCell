@@ -1,0 +1,1390 @@
+fileFormatVersion: 2
+guid: 852757b4e69798b498ef1b5680377c90
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ClipartKey_2473926_0
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 454
+        width: 35
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42279497a88a5b4478a48a2464f5bc08
+      internalID: -164348021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_1
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 447
+        width: 15
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0a3bada4cb885e4cb173098636ef9ab
+      internalID: 1677690556
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_2
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 431
+        width: 45
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c76459e8abf157b4abc051b390e9e784
+      internalID: 2096944125
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 391
+        width: 73
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: efbcc4708ffee1744956dd2f9ab088b0
+      internalID: -425849789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_4
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 458
+        width: 41
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b21ba5664af01d74a983c7a29b29dc03
+      internalID: -604840280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_5
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 303
+        width: 519
+        height: 606
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dfad83bfd0c3ef94caa1257fca3ee827
+      internalID: 1575135844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_6
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 422
+        width: 33
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 285a46676990ffd4baa174e4296b3561
+      internalID: -180811047
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_7
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 413
+        width: 21
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9d04fb7e0fd36b4fa12d9ad5a278a61
+      internalID: -461846661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_8
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 397
+        width: 36
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0820393ba99220a45b0c4337f42d0cff
+      internalID: -525496972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_9
+      rect:
+        serializedVersion: 2
+        x: 93
+        y: 410
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66445d1740f05194d8b5a917127b76fd
+      internalID: 29084482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_10
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 387
+        width: 37
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b03c6be4db62d9b40bddfd61197653dd
+      internalID: -1200710429
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_11
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 378
+        width: 29
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3738161def181b34ab4cb74874f222d7
+      internalID: -1824477660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_12
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 368
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e8e1ba85b34198468ed5647a4b09e92
+      internalID: 2141952342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_13
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 377
+        width: 39
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b2ab984913301e419fe55f4ada5144f
+      internalID: -1855681102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_14
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 371
+        width: 13
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ddbfabe6cd5aa554cb0925c199feac2f
+      internalID: -1583876256
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_15
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 362
+        width: 57
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8511923b565ccd143a1a7d563f058e47
+      internalID: -1626028959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_16
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 378
+        width: 31
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93b7f36fb19b3ad4090e0ffbf3552cc1
+      internalID: 1302230849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_17
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 367
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0dacab2eb0c41045bc4de0525e915c6
+      internalID: -631028140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_18
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 249
+        width: 81
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 52743a87a15afa44bba20c6767eefc2d
+      internalID: -1062580926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_19
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 330
+        width: 41
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d227491542e93247965055cd2b69bec
+      internalID: 749503113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_20
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 308
+        width: 45
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1102f294378ce94e83a563475bb4e71
+      internalID: 1747029545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_21
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 306
+        width: 16
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b92ed27206fcabc4b91863ff597ba3b6
+      internalID: 1457525405
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_22
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 299
+        width: 22
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55ce08da70c781340b2714c5bbfce6b8
+      internalID: -19929811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_23
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 293
+        width: 20
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f7696371483bac49987e689a6e2898a
+      internalID: 1045194431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_24
+      rect:
+        serializedVersion: 2
+        x: 226
+        y: 305
+        width: 30
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0447fb10d34aace498b81700cbe99556
+      internalID: 867827116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_25
+      rect:
+        serializedVersion: 2
+        x: 311
+        y: 307
+        width: 14
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3df71b2e83471ba40a9a50384ab0dc14
+      internalID: 1354809251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_26
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 300
+        width: 21
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb39f134678ab414db5f5c40d757a0ba
+      internalID: -1020788751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_27
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 306
+        width: 16
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed158c69ac2f70e4cb9ac44bf31c5007
+      internalID: 496250911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_28
+      rect:
+        serializedVersion: 2
+        x: 370
+        y: 254
+        width: 65
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6ae57d43cf67484ab989e26b05423c0
+      internalID: 659622372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_29
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 296
+        width: 14
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb39b4bbedf593047ad10a7a8da5f221
+      internalID: 1274153870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_30
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 285
+        width: 28
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 801c6c5062570d0498ea79038b9b3d71
+      internalID: 537702219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_31
+      rect:
+        serializedVersion: 2
+        x: 337
+        y: 279
+        width: 37
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f47c8982c3c35954084aa008ff76208e
+      internalID: -1571570328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_32
+      rect:
+        serializedVersion: 2
+        x: 459
+        y: 285
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a49bca9b811e02499b7cb215ae1189b
+      internalID: -529719644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_33
+      rect:
+        serializedVersion: 2
+        x: 517
+        y: 294
+        width: 13
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f0021114e194f446a81f1757bc150be
+      internalID: -1277419687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_34
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 281
+        width: 16
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4707d6429de576b4fa3431c133893318
+      internalID: 1950609293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_35
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 272
+        width: 29
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63d762403fc58744a9b72203adcc0ac1
+      internalID: -682301427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_36
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 148
+        width: 190
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0d1254801610de41956bd34eaf70b45
+      internalID: -1275667510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_37
+      rect:
+        serializedVersion: 2
+        x: 449
+        y: 268
+        width: 24
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6fbdb6557b4949647a3655b4f96d427b
+      internalID: -1315327627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_38
+      rect:
+        serializedVersion: 2
+        x: 475
+        y: 279
+        width: 16
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4d96d1c6e2342b44a56ff84e383e20f
+      internalID: -1160181106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_39
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 272
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45c2b812126da2b4886c1042c5c3c79e
+      internalID: -2001484343
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_40
+      rect:
+        serializedVersion: 2
+        x: 473
+        y: 241
+        width: 46
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5e2e646de724224f90cf133f717e6ea
+      internalID: -1481673446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_41
+      rect:
+        serializedVersion: 2
+        x: 520
+        y: 258
+        width: 33
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3680b66add0621d4a94548ac1301372b
+      internalID: 711055449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_42
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 247
+        width: 13
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d65c10c79df261438bdfca4ad8d756e
+      internalID: 218373246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_43
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 239
+        width: 18
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98d22dafa2aa7a74bad983bd1f79810f
+      internalID: -2036731799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_44
+      rect:
+        serializedVersion: 2
+        x: 344
+        y: 1
+        width: 181
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69a66d2d9b0df3843a519106b6048772
+      internalID: 492662163
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_45
+      rect:
+        serializedVersion: 2
+        x: 463
+        y: 245
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ddcf978a7d24b1e4f84bef7830f155e7
+      internalID: -553888826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_46
+      rect:
+        serializedVersion: 2
+        x: 497
+        y: 229
+        width: 35
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7280443889df1394bbd2ce8b1cae39cd
+      internalID: -560520883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_47
+      rect:
+        serializedVersion: 2
+        x: 531
+        y: 235
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f2de09f48883034888a3f5244bf35d5
+      internalID: -858200627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_48
+      rect:
+        serializedVersion: 2
+        x: 539
+        y: 0
+        width: 183
+        height: 254
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fae4f44e658344f48b1800024c6156a8
+      internalID: 1323901105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_49
+      rect:
+        serializedVersion: 2
+        x: 509
+        y: 212
+        width: 39
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b304400de5cea84d8420d82555abec2
+      internalID: 445846374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_50
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 106
+        width: 43
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9fd4348724b372e419ed22c1cad825ef
+      internalID: 2018014094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_51
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 124
+        width: 149
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94b2c61cd674fa641bef9de2557bff06
+      internalID: 1355081696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_52
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 100
+        width: 88
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca55ce74d498eae44a4dc61a67c07ae0
+      internalID: 155285939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_53
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 84
+        width: 79
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d279cf001d69da4da77e5b6f82a850a
+      internalID: 661740846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_54
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 116
+        width: 14
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07ddbb69af2c9ac4f8927f4dea459e10
+      internalID: -1079488825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_55
+      rect:
+        serializedVersion: 2
+        x: 154
+        y: 44
+        width: 137
+        height: 97
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bbc0f8140d7c4bc449d6ecbd93c13b6b
+      internalID: -2105901134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_56
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 89
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 952552a26f08eca418bd66ac054abdd1
+      internalID: -881818610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClipartKey_2473926_57
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 78
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d230899b1df7fb4eb3de1b948b5faaa
+      internalID: 1776540446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      ClipartKey_2473926_0: -164348021
+      ClipartKey_2473926_1: 1677690556
+      ClipartKey_2473926_10: -1200710429
+      ClipartKey_2473926_11: -1824477660
+      ClipartKey_2473926_12: 2141952342
+      ClipartKey_2473926_13: -1855681102
+      ClipartKey_2473926_14: -1583876256
+      ClipartKey_2473926_15: -1626028959
+      ClipartKey_2473926_16: 1302230849
+      ClipartKey_2473926_17: -631028140
+      ClipartKey_2473926_18: -1062580926
+      ClipartKey_2473926_19: 749503113
+      ClipartKey_2473926_2: 2096944125
+      ClipartKey_2473926_20: 1747029545
+      ClipartKey_2473926_21: 1457525405
+      ClipartKey_2473926_22: -19929811
+      ClipartKey_2473926_23: 1045194431
+      ClipartKey_2473926_24: 867827116
+      ClipartKey_2473926_25: 1354809251
+      ClipartKey_2473926_26: -1020788751
+      ClipartKey_2473926_27: 496250911
+      ClipartKey_2473926_28: 659622372
+      ClipartKey_2473926_29: 1274153870
+      ClipartKey_2473926_3: -425849789
+      ClipartKey_2473926_30: 537702219
+      ClipartKey_2473926_31: -1571570328
+      ClipartKey_2473926_32: -529719644
+      ClipartKey_2473926_33: -1277419687
+      ClipartKey_2473926_34: 1950609293
+      ClipartKey_2473926_35: -682301427
+      ClipartKey_2473926_36: -1275667510
+      ClipartKey_2473926_37: -1315327627
+      ClipartKey_2473926_38: -1160181106
+      ClipartKey_2473926_39: -2001484343
+      ClipartKey_2473926_4: -604840280
+      ClipartKey_2473926_40: -1481673446
+      ClipartKey_2473926_41: 711055449
+      ClipartKey_2473926_42: 218373246
+      ClipartKey_2473926_43: -2036731799
+      ClipartKey_2473926_44: 492662163
+      ClipartKey_2473926_45: -553888826
+      ClipartKey_2473926_46: -560520883
+      ClipartKey_2473926_47: -858200627
+      ClipartKey_2473926_48: 1323901105
+      ClipartKey_2473926_49: 445846374
+      ClipartKey_2473926_5: 1575135844
+      ClipartKey_2473926_50: 2018014094
+      ClipartKey_2473926_51: 1355081696
+      ClipartKey_2473926_52: 155285939
+      ClipartKey_2473926_53: 661740846
+      ClipartKey_2473926_54: -1079488825
+      ClipartKey_2473926_55: -2105901134
+      ClipartKey_2473926_56: -881818610
+      ClipartKey_2473926_57: 1776540446
+      ClipartKey_2473926_6: -180811047
+      ClipartKey_2473926_7: -461846661
+      ClipartKey_2473926_8: -525496972
+      ClipartKey_2473926_9: 29084482
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

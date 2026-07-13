@@ -33,10 +33,9 @@ public class PlayerRollState : PlayerState
         {
             if (stateTimer <= 0f)
             {
-                // Kiểm tra xem có kẹt trần nhà không
+                
                 if (player.isCeilingHit)
                 {
-                    // Nếu kẹt, thì duy trì trạng thái đứng khựng/thu nhỏ cho đến khi hết kẹt
                     return; 
                 }
 
@@ -50,11 +49,9 @@ public class PlayerRollState : PlayerState
         {
             if (stateTimer <= 0f)
             {
-                // Hết thời gian lăn -> Bắt đầu thời gian khựng lại
                 isStopping = true;
                 stateTimer = player.rollStopDuration;
                 
-                // Trả lại kích thước collider nếu không kẹt trần
                 if (player.coll != null && !player.isCeilingHit)
                 {
                     player.coll.size = player.normalColliderSize;
@@ -70,7 +67,6 @@ public class PlayerRollState : PlayerState
 
         if (isStopping)
         {
-            // Nhân vật đứng im một nhịp
             player.rb.velocity = new Vector2(0, player.rb.velocity.y);
         }
         else
@@ -83,7 +79,7 @@ public class PlayerRollState : PlayerState
     public override void Exit()
     {
         base.Exit();
-        // Đảm bảo trả lại kích thước khi thoát hẳn
+        
         if (player.coll != null)
         {
             player.coll.size = player.normalColliderSize;

@@ -11,8 +11,8 @@ public class PlayerEffects : MonoBehaviour
 
     [Header("Hurt Settings")]
     public Color hurtColor = Color.red;
-    public float hurtDuration = 0.2f;
-    public float stunDuration = 0.3f; // Thời gian choáng của người chơi
+    public float hurtDuration;
+    public float stunDuration; 
     private Color originalColor;
 
     private void Awake()
@@ -50,40 +50,38 @@ public class PlayerEffects : MonoBehaviour
 
     private void HandleHurt()
     {
-        // 1. Chớp đỏ nhân vật
+        //Chớp đỏ
         if (spriteRenderer != null)
         {
             StopCoroutine("FlashHurtColor");
             StartCoroutine("FlashHurtColor");
         }
 
-        // 2. Chạy animation hurt (nếu có)
-        // Lưu ý: Bạn cần tạo một Trigger tên là "hurt" trong Animator
+        //Chạy animation 
         if (anim != null)
         {
             anim.SetTrigger("hurt");
         }
 
-        // 3. Làm choáng người chơi
+        //Làm choáng 
         StopCoroutine("StunPlayerRoutine");
         StartCoroutine("StunPlayerRoutine");
     }
 
     private IEnumerator StunPlayerRoutine()
     {
-        // Tạm tắt quyền điều khiển
         if (playerMovement != null)
         {
             playerMovement.enabled = false;
         }
         if (rb != null)
         {
-            rb.velocity = Vector2.zero; // Dừng lập tức
+            rb.velocity = Vector2.zero;
         }
         
         yield return new WaitForSeconds(stunDuration);
         
-        // Nếu người chơi chưa chết thì bật lại
+        //Dead ?
         if (health != null && health.health > 0 && playerMovement != null)
         {
             playerMovement.enabled = true;
@@ -99,24 +97,20 @@ public class PlayerEffects : MonoBehaviour
 
     private void HandleDeath()
     {
-        // 1. Chạy animation death
-        // Lưu ý: Bạn cần tạo một Bool tên là "isDead" trong Animator
         if (anim != null)
         {
             anim.SetBool("isDead", true);
         }
 
-        // 2. Vô hiệu hoá script di chuyển
         if (playerMovement != null)
         {
             playerMovement.enabled = false;
         }
 
-        // 3. Dừng di chuyển vật lý
+        
         if (rb != null)
         {
-            rb.velocity = Vector2.zero;
-            // Tùy chọn: rb.simulated = false; // Bỏ comment nếu không muốn xác chết rơi xuống
+            rb.velocity = Vector2.zero;          
         }
         
         Debug.Log("Player đã chết!");
@@ -124,7 +118,6 @@ public class PlayerEffects : MonoBehaviour
 
     public void Revive()
     {
-        // 1. Reset lại Animator để chắc chắn thoát khỏi trạng thái chết
         if (anim != null)
         {
             anim.SetBool("isDead", false);
@@ -132,7 +125,6 @@ public class PlayerEffects : MonoBehaviour
             anim.Update(0f);
         }
 
-        // 2. Bật lại script điều khiển và reset State Machine về Idle
         if (playerMovement != null)
         {
             playerMovement.enabled = true;

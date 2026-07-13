@@ -16,6 +16,32 @@ public class UIManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        // Ép tìm lại Player đang active trên Scene để tránh dính reference cũ
+        Player[] allPlayers = FindObjectsOfType<Player>();
+        foreach (Player p in allPlayers)
+        {
+            if (p.gameObject.activeInHierarchy)
+            {
+                // Ưu tiên player có tag là "Player" hoặc là Archer
+                if (p.CompareTag("Player") || p is Archer)
+                {
+                    player = p;
+                    break;
+                }
+                
+                // Fallback nếu không có tag
+                if (player == null)
+                {
+                    player = p;
+                }
+            }
+        }
+
+        if (player != null)
+        {
+            playerHealth = player.GetComponent<Health>();
+        }
     }
     [Header("Player References")]
     public Player player;
@@ -40,12 +66,20 @@ public class UIManager : MonoBehaviour
     private Health currentBossHealth;
 
     [Header("Buffs/Skills Settings")]
-    // Danh sách tất cả các UI của Icon buff mà mình kéo vào từ Inspector
     public List<BuffIconUI> buffIcons;
+
+    [Header("Items Settings")]
+    public TMPro.TextMeshProUGUI keyText;
+    private int lastKeyCount = -1;
+
+    [Header("Level End Settings")]
+    public GameObject levelEndPanel;
+    public TMPro.TextMeshProUGUI levelEndMessageText;
+    private string levelEndNextScene;
+    private string levelEndMenuScene;
 
     private void OnEnable()
     {
-        // Đăng ký sự kiện (lắng nghe)
         if (playerHealth != null)
         {
             playerHealth.onHealthChanged += UpdateHealthBar;
@@ -60,7 +94,6 @@ public class UIManager : MonoBehaviour
 
     private void OnDisable()
     {
-        // Hủy đăng ký sự kiện để tránh lỗi bộ nhớ khi UIManager bị xóa
         if (playerHealth != null)
         {
             playerHealth.onHealthChanged -= UpdateHealthBar;
@@ -75,37 +108,48 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        // Khởi tạo thanh máu lần đầu
         if (playerHealth != null)
         {
             UpdateHealthBar(playerHealth.health, playerHealth.maxHealth);
         }
 
-        // Ẩn thanh máu Boss khi mới bắt đầu game
         if (bossHealthPanel != null)
         {
             bossHealthPanel.SetActive(false);
         }
 
-        // Ẩn Menu Chết khi mới bắt đầu game
         if (deathMenuPanel != null)
         {
             deathMenuPanel.SetActive(false);
         }
 
-        // Ẩn Menu Tạm dừng khi mới bắt đầu game
         if (pauseMenuPanel != null)
         {
             pauseMenuPanel.SetActive(false);
+        }
+
+        // Ẩn Panel Kết thúc màn khi mới bắt đầu game
+        if (levelEndPanel != null)
+        {
+            levelEndPanel.SetActive(false);
         }
     }
 
     private void Update()
     {
-        // Nhấn ESC để bật/tắt tạm dừng
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             TogglePause();
+        }
+
+        // Cập nhật số lượng chìa khóa
+        if (player != null && keyText != null)
+        {
+            if (player.keyCount != lastKeyCount)
+            {
+                lastKeyCount = player.keyCount;
+                keyText.text = lastKeyCount.ToString();
+            }
         }
     }
 
@@ -119,10 +163,10 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    // Hàm này được gọi tự động khi sự kiện onSkillUnlocked phát ra
+    
     private void HandleSkillUnlocked(string skillName)
     {
-        // Tìm Icon tương ứng với tên skill và bật nó lên
+        
         foreach (var buffIcon in buffIcons)
         {
             if (buffIcon.skillName == skillName)
@@ -169,7 +213,10 @@ public class UIManager : MonoBehaviour
     {
         if (deathMenuPanel != null)
         {
+            deathMenuPanel.transform.SetAsLastSibling();
             deathMenuPanel.SetActive(true);
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
         }
     }
 
@@ -212,6 +259,12 @@ public class UIManager : MonoBehaviour
 
         if (pauseMenuPanel != null)
         {
+            if (isPaused)
+            {
+                pauseMenuPanel.transform.SetAsLastSibling();
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+            }
             pauseMenuPanel.SetActive(isPaused);
         }
     }
@@ -268,5 +321,57 @@ public class UIManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+    }
+
+    // -- LEVEL END UI --
+    public void ShowLevelEndPanel(string message, string nextScene, string menuScene)
+    {
+        levelEndNextScene = ResolveSceneAlias(nextScene);
+        levelEndMenuScene = menuScene;
+
+        if (levelEndMessageText != null)
+        {
+            levelEndMessageText.text = message;
+        }
+
+        if (levelEndPanel != null)
+        {
+            levelEndPanel.transform.SetAsLastSibling();
+            levelEndPanel.SetActive(true);
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+
+        // Tạm dừng game khi hiện bảng kết thúc
+        Time.timeScale = 0f;
+    }
+
+    public void OnLevelEndNextClicked()
+    {
+        Time.timeScale = 1f;
+        if (!string.IsNullOrEmpty(levelEndNextScene))
+        {
+            if (SceneTransitionManager.Instance != null)
+                SceneTransitionManager.Instance.LoadScene(levelEndNextScene);
+            else
+                UnityEngine.SceneManagement.SceneManager.LoadScene(levelEndNextScene);
+        }
+    }
+
+    private string ResolveSceneAlias(string sceneName)
+    {
+        return sceneName == "SummerLevel" ? "SampleScene 1" : sceneName;
+    }
+
+    public void OnLevelEndMenuClicked()
+    {
+        Time.timeScale = 1f;
+        if (!string.IsNullOrEmpty(levelEndMenuScene))
+        {
+            if (SceneTransitionManager.Instance != null)
+                SceneTransitionManager.Instance.LoadScene(levelEndMenuScene);
+            else
+                UnityEngine.SceneManagement.SceneManager.LoadScene(levelEndMenuScene);
+        }
     }
 }
