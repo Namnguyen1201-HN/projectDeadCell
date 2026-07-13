@@ -66,7 +66,6 @@ public class UIManager : MonoBehaviour
     private Health currentBossHealth;
 
     [Header("Buffs/Skills Settings")]
-    // Danh sách tất cả các UI của Icon buff mà mình kéo vào từ Inspector
     public List<BuffIconUI> buffIcons;
 
     [Header("Items Settings")]
@@ -81,7 +80,6 @@ public class UIManager : MonoBehaviour
 
     private void OnEnable()
     {
-        // Đăng ký sự kiện (lắng nghe)
         if (playerHealth != null)
         {
             playerHealth.onHealthChanged += UpdateHealthBar;
@@ -96,7 +94,6 @@ public class UIManager : MonoBehaviour
 
     private void OnDisable()
     {
-        // Hủy đăng ký sự kiện để tránh lỗi bộ nhớ khi UIManager bị xóa
         if (playerHealth != null)
         {
             playerHealth.onHealthChanged -= UpdateHealthBar;
@@ -111,25 +108,21 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        // Khởi tạo thanh máu lần đầu
         if (playerHealth != null)
         {
             UpdateHealthBar(playerHealth.health, playerHealth.maxHealth);
         }
 
-        // Ẩn thanh máu Boss khi mới bắt đầu game
         if (bossHealthPanel != null)
         {
             bossHealthPanel.SetActive(false);
         }
 
-        // Ẩn Menu Chết khi mới bắt đầu game
         if (deathMenuPanel != null)
         {
             deathMenuPanel.SetActive(false);
         }
 
-        // Ẩn Menu Tạm dừng khi mới bắt đầu game
         if (pauseMenuPanel != null)
         {
             pauseMenuPanel.SetActive(false);
@@ -144,7 +137,6 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        // Nhấn ESC để bật/tắt tạm dừng
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             TogglePause();
@@ -171,10 +163,10 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    // Hàm này được gọi tự động khi sự kiện onSkillUnlocked phát ra
+    
     private void HandleSkillUnlocked(string skillName)
     {
-        // Tìm Icon tương ứng với tên skill và bật nó lên
+        
         foreach (var buffIcon in buffIcons)
         {
             if (buffIcon.skillName == skillName)

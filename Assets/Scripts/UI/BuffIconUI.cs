@@ -4,14 +4,13 @@ using UnityEngine.UI;
 public class BuffIconUI : MonoBehaviour
 {
     [Header("Skill Settings")]
-    public string skillName; // Tên skill khớp với lúc gọi Invoke trong Player.cs (ví dụ: "DoubleJump")
-    
+    public string skillName;
     [Header("UI Components")]
     public Image iconImage;
     
     [Header("Visual Settings")]
-    public Color lockedColor = new Color(1f, 1f, 1f, 0.3f); // Làm mờ khi chưa có skill
-    public Color unlockedColor = new Color(1f, 1f, 1f, 1f); // Sáng lên khi đã có skill
+    public Color lockedColor = new Color(1f, 1f, 1f, 0.3f);
+    public Color unlockedColor = new Color(1f, 1f, 1f, 1f); 
 
     private bool isUnlocked = false;
 
@@ -22,7 +21,7 @@ public class BuffIconUI : MonoBehaviour
             iconImage = GetComponent<Image>();
         }
         
-        // Trạng thái mặc định ban đầu là bị khóa
+        //Trạng thái mặc định
         SetUnlocked(false);
     }
 
@@ -30,7 +29,6 @@ public class BuffIconUI : MonoBehaviour
     {
         isUnlocked = unlocked;
         
-        // Hiển thị GameObject nếu được unlock, ẩn đi nếu chưa có
         gameObject.SetActive(isUnlocked);
 
         if (iconImage != null)

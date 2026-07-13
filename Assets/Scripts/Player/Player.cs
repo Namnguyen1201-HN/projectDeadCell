@@ -48,10 +48,10 @@ public class Player : MonoBehaviour
     public Vector2 normalColliderOffset { get; private set; }
 
     [Header("Abilities & Items")]
-    public int keyCount = 0;
+    public int keyCount;
     public bool hasDoubleJump = false;
-    public int jumpsRemaining = 1;
-    public int strengthBuffAmount = 10;
+    public int jumpsRemaining;
+    public int strengthBuffAmount;
 
     public float horizontalInput { get; private set; }
     public bool isFacingRight { get; private set; } = true;
@@ -99,6 +99,7 @@ public class Player : MonoBehaviour
 
     protected virtual void Update()
     {
+        
         
         horizontalInput = Input.GetAxisRaw("Horizontal");
 
