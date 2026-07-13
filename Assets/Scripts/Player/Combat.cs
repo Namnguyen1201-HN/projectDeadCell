@@ -6,22 +6,22 @@ public class Combat : MonoBehaviour
 
     [Header("Attack Settings")]
     public Transform attackPoint;
-    public float attackRadius = 1f;
+    public float attackRadius;
     public LayerMask enemyLayer;
-    public int attackDamage = 10;
-    public float attackCooldown = 0.6f;
+    public int attackDamage;
+    public float attackCooldown;
     public float nextAttackTime;
 
     [Header("Sword Profile")]
-    public float swordAttackRadius = 1f;
-    public float swordCooldown = 0.6f;
+    public float swordAttackRadius;
+    public float swordCooldown;
 
     [Header("Bow Profile")]
-    public float bowAttackRadius = 6f;
-    public float bowCooldown = 1.1f;
+    public float bowAttackRadius;
+    public float bowCooldown;
     public GameObject arrowProjectilePrefab;
     public Transform bowFirePoint;
-    public float arrowSpeed = 12f;
+    public float arrowSpeed;
 
     public Animator hitFX;
 

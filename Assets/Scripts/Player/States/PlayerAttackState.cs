@@ -8,18 +8,16 @@ public class PlayerAttackState : PlayerState
     {
     }
 
-
-
     public override void Enter()
     {
         base.Enter();
         if (player.anim != null) player.anim.SetBool("isAttacking", true);
         player.rb.velocity = new Vector2(0,player.rb.velocity.y);
 
-        // Reset cờ hoàn thành đòn đánh
+        //Reset attack
         player.isAttackFinished = false;
 
-        // Cập nhật mốc thời gian cho đòn đánh tiếp theo thông qua Combat
+        //Updata time next attack
         if (player.combat != null)
         {
             player.combat.nextAttackTime = Time.time + player.combat.GetCurrentAttackCooldown();
@@ -30,7 +28,7 @@ public class PlayerAttackState : PlayerState
     {
         base.Update();
 
-        // Chờ tín hiệu từ Animation Event báo rằng đã vung kiếm xong
+        //Wait animation event
         if (player.isAttackFinished)
         {
             stateMachine.ChangeState(player.IdleState);

@@ -14,31 +14,27 @@ public class PlayerRespawn : MonoBehaviour
 
     private void Start()
     {
-        // Khởi tạo điểm hồi sinh ban đầu là vị trí lúc mới vào game
         currentRespawnPosition = transform.position;
     }
 
-    // Hàm gọi khi người chơi đi qua một điểm Checkpoint an toàn mới
     public void UpdateRespawnPosition(Vector3 newPosition)
     {
         currentRespawnPosition = newPosition;
     }
 
-    // Hàm gọi khi chạm vào chông hoặc bẫy
+    //Spike
     public void TakeHazardDamageAndRespawn(int damageAmount)
     {
-        // 1. Trừ máu (sử dụng hàm changeHealth trong Health.cs của bạn)
+    
         if (playerHealth != null)
         {
             playerHealth.changeHealth(-damageAmount);
         }
 
-        // 2. Nếu nhân vật vẫn còn sống thì đưa về vị trí checkpoint
         if (playerHealth != null && playerHealth.health > 0)
         {
             transform.position = currentRespawnPosition;
             
-            // Reset vận tốc để nhân vật không giữ gia tốc rơi/di chuyển cũ
             if (rb != null)
             {
                 rb.velocity = Vector2.zero;
@@ -48,21 +44,18 @@ public class PlayerRespawn : MonoBehaviour
 
     public void ReviveAtCheckpoint()
     {
-        // 1. Hồi đầy máu
+        
         if (playerHealth != null)
-        {
-            // Truyền lượng máu tối đa vào hàm changeHealth, logic trong Health.cs sẽ giữ máu không vượt quá maxHealth
+        {            
             playerHealth.changeHealth(playerHealth.maxHealth); 
         }
 
-        // 2. Đưa nhân vật về vị trí checkpoint
         transform.position = currentRespawnPosition;
         if (rb != null)
         {
             rb.velocity = Vector2.zero;
         }
 
-        // 3. Gọi PlayerEffects để tắt animation chết và cho phép di chuyển
         PlayerEffects effects = GetComponent<PlayerEffects>();
         if (effects != null)
         {

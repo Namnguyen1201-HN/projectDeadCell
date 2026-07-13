@@ -2035,7 +2035,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.102889, y: -0.4395182, z: -10.023216}
+  m_LocalPosition: {x: -5.1600714, y: -0.4394282, z: -10.023216}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2355,7 +2355,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &576833854
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11593,7 +11593,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1190618627
 RectTransform:
   m_ObjectHideFlags: 0
@@ -54620,11 +54620,11 @@ MonoBehaviour:
   nextAttackTime: 0
   swordAttackRadius: 1
   swordCooldown: 0.6
-  bowAttackRadius: 6
-  bowCooldown: 1.1
+  bowAttackRadius: 0
+  bowCooldown: 0
   arrowProjectilePrefab: {fileID: 0}
   bowFirePoint: {fileID: 0}
-  arrowSpeed: 12
+  arrowSpeed: 0
   hitFX: {fileID: 768435397}
 --- !u!4 &1560472439 stripped
 Transform:

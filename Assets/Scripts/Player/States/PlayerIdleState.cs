@@ -9,7 +9,7 @@ public class PlayerIdleState : PlayerState
     public override void Enter()
     {
         base.Enter();
-        // Khi đứng im, ép vận tốc X về 0 để không bị trôi
+        
         player.rb.velocity = new Vector2(0, player.rb.velocity.y);
         player.jumpsRemaining = player.hasDoubleJump ? 2 : 1;
     }
@@ -18,7 +18,6 @@ public class PlayerIdleState : PlayerState
     {
         base.Update();
 
-        // Kiểm tra bấm chuột trái và thời gian hồi chiêu
         if (Input.GetMouseButtonDown(0) && player.CanAttack())
         {
             stateMachine.ChangeState(player.AttackState);
@@ -27,7 +26,6 @@ public class PlayerIdleState : PlayerState
 
         if (Input.GetButtonDown("Jump") && player.isGrounded)
         {
-            // Không nhảy lên nếu đang bấm nút Xuống (để nhường cho logic tụt xuống của PlayerPassThroughPlatform)
             if (Input.GetAxisRaw("Vertical") < -0.1f) return;
 
             stateMachine.ChangeState(player.JumpState);

@@ -213,7 +213,10 @@ public class UIManager : MonoBehaviour
     {
         if (deathMenuPanel != null)
         {
+            deathMenuPanel.transform.SetAsLastSibling();
             deathMenuPanel.SetActive(true);
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
         }
     }
 
@@ -256,6 +259,12 @@ public class UIManager : MonoBehaviour
 
         if (pauseMenuPanel != null)
         {
+            if (isPaused)
+            {
+                pauseMenuPanel.transform.SetAsLastSibling();
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+            }
             pauseMenuPanel.SetActive(isPaused);
         }
     }
@@ -327,7 +336,10 @@ public class UIManager : MonoBehaviour
 
         if (levelEndPanel != null)
         {
+            levelEndPanel.transform.SetAsLastSibling();
             levelEndPanel.SetActive(true);
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
         }
 
         // Tạm dừng game khi hiện bảng kết thúc

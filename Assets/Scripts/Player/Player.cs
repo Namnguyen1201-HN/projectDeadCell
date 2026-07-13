@@ -93,13 +93,11 @@ public class Player : MonoBehaviour
             normalColliderOffset = coll.offset;
         }
 
-        
         StateMachine.Initialize(IdleState);
     }
 
     protected virtual void Update()
     {
-        
         
         horizontalInput = Input.GetAxisRaw("Horizontal");
 
