@@ -17,6 +17,7 @@ public class PlayerJumpState : PlayerState
     {
         base.Update();
 
+        // up/top/down depends on yVelocity (Blend Tree)
         if (player.anim != null) player.anim.SetFloat("yVelocity", player.rb.velocity.y);
 
         if (Input.GetButtonDown("Jump") && player.hasDoubleJump && player.jumpsRemaining > 0)
@@ -25,6 +26,7 @@ public class PlayerJumpState : PlayerState
             Jump();
         }
 
+        //landing
         if (player.rb.velocity.y <= 0.1f && player.isGrounded)
         {
             if (Mathf.Abs(player.horizontalInput) > 0.1f)
