@@ -96665,6 +96665,7 @@ GameObject:
   - component: {fileID: 2017246633}
   - component: {fileID: 2017246634}
   - component: {fileID: 2017246635}
+  - component: {fileID: 2017246636}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -96849,6 +96850,22 @@ MonoBehaviour:
   isInvincible: 0
   doubleDamageRemaining: 0
   invincibleRemaining: 0
+--- !u!114 &2017246636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2017246626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b7bb0370e9b58f4b89be4ac1df47778, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  idleFramesPerSecond: 6
+  actionFramesPerSecond: 10
+  visualLocalPosition: {x: 0.5, y: -1.06, z: 0}
+  visualLocalScale: {x: 1, y: 1, z: 1}
 --- !u!1 &2021116829
 GameObject:
   m_ObjectHideFlags: 0
