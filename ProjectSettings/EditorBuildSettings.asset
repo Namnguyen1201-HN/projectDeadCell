@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/Scenes/AutumnRuins.unity
     guid: ec70689e21fd3da49a9e5f3d8db9425a
   - enabled: 1
-    path: Assets/Scenes/SampleScene 1.unity
+    path: Assets/Scenes/SummerLevel.unity
     guid: 3936dd246a8d515499d21c025fe5bce6
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: c56116b5bf0a7ed4a9f2225b1ade744c, type: 2}

@@ -39,19 +39,18 @@ public class PlayerProjectile : MonoBehaviour
         if (other.CompareTag("Player") || (other.transform.root != null && other.transform.root.CompareTag("Player")))
             return;
 
-        bool isEnemyLayer = (enemyLayer.value & (1 << other.gameObject.layer)) != 0;
-        bool belongsToEnemy = other.GetComponentInParent<EnemyBase>() != null || other.GetComponentInParent<Health>() != null;
-        if (!isEnemyLayer && !belongsToEnemy) return;
+        if (other.isTrigger && other.GetComponentInParent<Health>() == null)
+            return;
 
         Health targetHealth = other.GetComponentInParent<Health>();
         if (targetHealth != null)
         {
             targetHealth.changeHealth(-damage);
             ownerStance?.TryApplyBurn(targetHealth);
+            
+            EnemyBase enemyBase = other.GetComponentInParent<EnemyBase>();
+            if (enemyBase != null) ownerStance?.TryApplySlow(enemyBase);
         }
-
-        EnemyBase enemyBase = other.GetComponentInParent<EnemyBase>();
-        ownerStance?.TryApplySlow(enemyBase);
 
         if (hitEffectPrefab != null)
             Instantiate(hitEffectPrefab, transform.position, Quaternion.identity);

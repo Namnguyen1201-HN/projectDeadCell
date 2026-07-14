@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 /// <summary>
 /// End-of-level transition.
 /// If nextSceneName is empty, it can fall back to the team's current flow:
-/// Spring -> SampleScene 1 -> WinterLevel -> AutumnRuins.
+/// Spring -> SummerLevel -> WinterLevel -> AutumnRuins.
 /// </summary>
 public class LevelTransition : MonoBehaviour
 {
@@ -69,7 +69,7 @@ public class LevelTransition : MonoBehaviour
         string current = SceneManager.GetActiveScene().name.ToLowerInvariant();
 
         if (current.Contains("spring") || current.Contains("xuan") || current.Contains("xuân"))
-            return "SampleScene 1";
+            return "SummerLevel";
 
         if (current.Contains("summer") || current.Contains("ha") || current.Contains("hạ"))
             return "WinterLevel";

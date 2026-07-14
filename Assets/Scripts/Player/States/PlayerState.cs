@@ -15,7 +15,6 @@ public abstract class PlayerState
 
     public virtual void Enter()
     {
-        // FIXED: null-guard tránh crash khi Animator chưa gán (ví dụ: AutumnRuins bootstrap chưa xong)
         if (player.anim != null && !string.IsNullOrEmpty(animBoolName))
             player.anim.SetBool(animBoolName, true);
     }
@@ -30,7 +29,6 @@ public abstract class PlayerState
 
     public virtual void Exit()
     {
-        // FIXED: null-guard tương tự
         if (player.anim != null && !string.IsNullOrEmpty(animBoolName))
             player.anim.SetBool(animBoolName, false);
     }

@@ -5,10 +5,10 @@ using UnityEngine.UI;
 public class MainMenuController : MonoBehaviour
 {
     [Header("Scene Settings")]
-    [Tooltip("Tên Scene chính của game bạn muốn load khi bấm Bắt Đầu")]
+    
     public string mainGameSceneName = "SpringLeverScenes";
     [SerializeField] private string springSceneName = "SpringLeverScenes";
-    [SerializeField] private string summerSceneName = "SampleScene 1";
+    [SerializeField] private string summerSceneName = "SummerLevel";
     [SerializeField] private string autumnSceneName = "AutumnRuins";
     [SerializeField] private string winterSceneName = "WinterLevel";
 
@@ -16,7 +16,7 @@ public class MainMenuController : MonoBehaviour
     public GameObject mainMenuPanel;
     public GameObject storyPanel;
     public GameObject tutorialPanel;
-    public GameObject levelSelectPanel; // Panel chọn màn chơi
+    public GameObject levelSelectPanel; 
 
     [Header("Generated Level Select")]
     [SerializeField] private bool rebuildLevelSelectPanel = true;
@@ -224,8 +224,8 @@ public class MainMenuController : MonoBehaviour
 
     private void LoadSceneByName(string sceneName)
     {
-        if (sceneName == "SummerLevel")
-            sceneName = "SampleScene 1";
+        if (sceneName == "SampleScene 1")
+            sceneName = "SummerLevel";
 
         if (string.IsNullOrWhiteSpace(sceneName))
         {

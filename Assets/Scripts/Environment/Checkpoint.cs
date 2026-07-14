@@ -9,7 +9,6 @@ public class Checkpoint : MonoBehaviour
             PlayerRespawn respawn = collision.GetComponent<PlayerRespawn>();
             if (respawn != null)
             {
-                // Cập nhật điểm hồi sinh thành vị trí của checkpoint này
                 respawn.UpdateRespawnPosition(transform.position);
             }
         }

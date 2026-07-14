@@ -78,7 +78,7 @@ public class SceneTransitionManager : MonoBehaviour
 
     private string ResolveSceneAlias(string sceneName)
     {
-        return sceneName == "SummerLevel" ? "SampleScene 1" : sceneName;
+        return sceneName == "SampleScene 1" ? "SummerLevel" : sceneName;
     }
 
     private IEnumerator TransitionRoutine(int buildIndex)
